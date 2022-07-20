@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewBag.Title = "Adicciones";
+    Layout = "~/Views/Shared/_LayaoutGeneral.cshtml";
+}
+
+<!-- Espacio donde se agregan los estilos personalizados -->
+@section Estilos{
+    <link href="~/Content/Adiccioens/Adicciones.css" rel="stylesheet" />
+}
+
+
+<div class="form-group">
+    <h2 class="">Adicciones</h2>
+    <label>Buscar adiccion</label>
+    <input type="text" name="Nombre" id="Buscador" />
+    <a class="btn btn-danger" id="BtnCancelarFiltro" title="Cancelar busqueda"><i class="bi bi-x-circle"></i></a>
+    @*<a href="~/Adicciones/NuevaAdiccion" class="btn btn-success" title="Nueva adiccion"><i class="bi bi-plus-circle"></i> Nueva Adiccion</a>*@
+    <a id="BtnExpandir" class="btn btn-success" onclick="" title="Nueva adiccion"><i class="bi bi-plus-circle"></i> Nueva adiccion</a>
+</div>
+
+<div id="Formulario">
+    <h2>Nueva Adiccion</h2>
+    @*<label id="Mensaje" style="display:none;">@ViewBag.Mensaje</label>*@
+    <form id="FrmAdicciones" method="post">
+        <div class="form-group">
+            <label>Nombre de adiccion</label>
+            <input type="text" name="Nombre" id="Adiccion" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Descripcion</label>
+            <textarea name="Descripcion" id="Descripcion" class="form-control" rows="5"></textarea>
+            @*<input type="text" name="Descripcion" id="Descripcion" class="form-control" />*@
+        </div>
+        <div class="form-group">
+            <label>Código</label>
+            <input type="text" name="Codigo" id="Codigo" class="form-control" />
+        </div>
+        <div class="form-group">
+            <input type="button" value="Guardar" id="BtnInsertar" class="btn btn-success" />
+            <input type="button" value="Modificar" id="BtnModificar" class="btn btn-warning" />
+            <input type="button" value="Cancelar" id="BtnCancelar" class="btn btn-default" />
+            @*<a href="~/Adicciones/Adicciones" class="btn btn-default">Lista de adicciones</a>*@
+        </div>
+    </form>
+</div>
+
+<div id="Tabla">
+    <table class="table" id="Plantilla">
+        <tbody id="EncabezadoTabla">
+            <tr>
+                <th>Nombre de adiccion</th>
+                <th>Descripción</th>
+                <th>Código</th>
+                <th colspan="2">Acciones</th>
+            </tr>
+        </tbody>
+        <tbody id="CuerpoTabla">
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Espacio donde se agregan los scripts personalizados -->
+@section Scripts{
+    <script src="~/Scripts/Adicciones/Adicciones.js"></script>
+}

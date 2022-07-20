@@ -1,0 +1,18 @@
+﻿label.error {
+    color: red;
+}
+
+input.error, textarea.error {
+    border: 1px solid red;
+}
+
+input.valid, textarea.valid {
+    border: 2px solid green;
+}
+
+th {
+/*    display: flex;
+    justify-content: center;
+    align-content: center;*/
+    text-align: center;
+}

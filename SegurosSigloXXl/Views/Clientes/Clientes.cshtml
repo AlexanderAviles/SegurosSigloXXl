@@ -1,0 +1,164 @@
+﻿
+@{
+    ViewBag.Title = "Clientes";
+    Layout = "~/Views/Shared/_LayaoutGeneral.cshtml";
+}
+
+<!-- Espacio donde se agregan los estilos personalizados -->
+@section Estilos{
+    <link href="~/Content/Clientes/Pasos.css" rel="stylesheet" />
+    <link href="~/Content/Clientes/Clientes.css" rel="stylesheet" />
+}
+
+
+<div class="Body">
+    <h2 class="">Clientes</h2>
+    <div class="form-group">
+        <label>Buscar cliente</label>
+        <input type="text" name="Nombre" id="Buscador" />
+        <a class="btn btn-danger" id="BtnCancelarFiltro" title="Cancelar busqueda"><i class="bi bi-x-circle"></i></a>
+        @*<a href="~/Adicciones/NuevaAdiccion" class="btn btn-success" title="Nueva adiccion"><i class="bi bi-plus-circle"></i> Nueva Adiccion</a>*@
+        <a id="BtnExpandir" class="btn btn-success" title="Nuevo cliente"><i class="bi bi-plus-circle"></i> Nuevo cliente</a>
+    </div>
+</div>
+
+<!-- FORMULARIOS -->
+<div id="Formulario">
+    <div class="Body">
+
+        <div class="form">
+            <h1 class="">Registro de clientes</h1>
+            <!-- Barras de progreso -->
+            <div class="barras-progreso">
+                <div class="progreso" id="progreso"></div>
+                <div class="progreso-paso progreso-paso-activo" data-title="Informacion personal"></div>
+                <div class="progreso-paso" data-title="Direccion"></div>
+                <div class="progreso-paso" data-title="Otros"></div>
+                <div class="progreso-paso" data-title="Cuenta"></div>
+                <!-- <div class="progreso-paso" data-title="Contacto"></div> -->
+            </div>
+            <!-- Paso 1 -->
+            <form method="post" id="Form-Paso1">
+                <div class="form-paso form-paso-activo Paso1">
+
+                    <div class="form-group">
+                        <label>Cedula</label>
+                        <input type="number" name="Cedula" id="Cedula" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <input type="text" name="Nombre" id="Nombre" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Primer apellido</label>
+                        <input type="text" name="PrimerApellido" id="PrimerApellido" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Segundo apellido</label>
+                        <input type="text" name="SegundoApellido" id="SegundoApellido" class="form-control" />
+                    </div>
+                    <div class="">
+                        <a class="btnp btn-primary btn-next-P1 width-50 ml-auto" id="btn-Paso1"><i class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div>
+            </form>
+
+            <form method="post" id="Form-Paso2">
+                <!-- Paso 2 -->
+                <div class="form-paso">
+                    <div class="form-group">
+                        <label>Provincia</label>
+                        <select name="Provincia" id="Provincia" class="form-control">
+                            @*<option value="">Seleccione una provincia</option>*@
+                        </select>  
+                    </div>
+                    <div class="form-group">
+                        <label>Cantón</label>
+                        <select name="Canton" id="Canton" class="form-control">
+                            <option value="">Seleccione un canton</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Distrito</label>
+                        <select name="Distrito" id="Distrito" class="form-control">
+                            <option value="">Seleccione un distrito</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Direccion fisica</label>
+                        <input type="text" name="Direccion" id="Direccion" class="form-control" />
+                    </div>
+                    <div class="bnts-group">
+                        <a class="btnp btn-prev"><i class="bi bi-arrow-left"></i></a>
+                        <a class="btnp btn-next" id="btn-Paso2"><i class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div>
+            </form>
+            <form method="post" id="Form-Paso3">
+                <!-- Paso 3 -->
+                <div class="form-paso">
+                    <div class="form-group">
+                        <label>Teléfono</label>
+                        <input type="number" name="Telefono" id="Telefono" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Correo electronico</label>
+                        <input type="email" name="Correo" id="Correo" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha de nacimiento</label>
+                        <input type="date" name="FechaNacimiento" id="FechaNacimiento" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Genero</label>
+                        <select name="Genero" id="Genero" class="form-control">
+                            <option value="">Seleccione un genero</option>
+                            <option value="F">Femenino</option>
+                            <option value="M">Masculino</option>
+                        </select>
+                        
+                    </div>
+                    <div class="bnts-group">
+                        <a class="btnp btn-prev"><i class="bi bi-arrow-left"></i></a>
+                        <a class="btnp btn-next" id="btn-Paso3"><i class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div>
+            </form>
+            <form method="post" id="Form-Paso4">
+                <!-- Paso 4 -->
+                <div class="form-paso">
+                    <div class="form-group">
+                        <label>Tipo de usuario</label>
+                        <input type="text" name="TipoUsuario" id="TipoUsuario" class="form-control" />
+                    </div>
+                    <div class="bnts-group">
+                        <a class="btnp btn-prev"><i class="bi bi-arrow-left"></i></a>
+                        <input type="button" class="btnp btn-next" id="Guardar" value="Guardar" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="Tabla">
+    <table class="table" id="Plantilla">
+        <tr>
+            <th>Cédula</th>
+            <th>Nombre completo</th>
+            <th>Género</th>
+            <th>Direccion</th>
+            <th>Direccion fisica</th>
+            <th>Fecha de nacimiento</th>
+            <th>Correo</th>
+            <th colspan="2">Acciones</th>
+        </tr>
+        <tbody id="CuerpoTabla">
+        </tbody>
+    </table>
+</div>
+<!-- Espacio donde se agregan los scripts personalizados -->
+@section Scripts{
+    @*<script src="~/Scripts/Clientes/PruebaValidacion.js"></script>*@
+    <script src="~/Scripts/Clientes/Clientes.js" type="module"></script>
+}

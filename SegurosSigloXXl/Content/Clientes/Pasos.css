@@ -1,0 +1,145 @@
+﻿:root{
+    --primary-color: rgb(0, 148, 255)
+}
+
+/*Estilos generales*/
+*,
+::before,
+::after{
+    box-sizing: border-box;
+}
+
+.Body{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin: 0;
+/*    display: grid;
+    place-content: center;*/
+    /*min-height: 100vh;*/
+}
+/*label {
+    display: block;
+    margin-bottom: 0.05rem;
+}
+
+input {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+}*/
+.ml-auto{
+    margin-left: auto;
+}
+
+/*Progreso de barras*/
+.barras-progreso {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    /* CAMBIA EL NUMERO DE LA BARRA DE PROGRESO */
+    counter-reset: paso;
+    margin: 3rem 0 4rem;
+}
+
+/*LINEA DE LA BARRA DE PROGRESO*/
+    .barras-progreso::before, .progreso {
+        content: "";
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 4px;
+        width: 100%;
+        background-color: #dcdcdc;
+        z-index: -1;
+    }
+
+/* LINEA DE PRGORESO */
+.progreso {
+    background-color: var(--primary-color);
+    width: 0%;
+    transition: .5s;
+}
+
+/* BURBUJAS DE PROGRESO */
+.progreso-paso {
+    width: 3.1875rem;
+    height: 3.1875rem;
+    background-color: #dcdcdc;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* NUMERO DE BURBUJAS */
+.progreso-paso::before {
+        counter-increment: paso;
+        content: counter(paso);
+}
+    /* TEXTO DE PASO EN BURBUJAS DE PROGRESO */
+    .progreso-paso::after {
+        content: attr(data-title);
+        position: absolute;
+        top: calc(100% + 0.75rem);
+        font-size: 1rem;
+        color: #666;
+        text-align: center;
+    }
+
+/* COLOR DE LA BURBUJA ACTIVA */
+.progreso-paso-activo {
+    background-color: var(--primary-color);
+    color: #f3f3f3;
+    transition: 0.9s;
+}
+/*Estilo de formulario*/
+.form{
+    width: clamp(400px, 30%, 430px);
+    margin: 0 auto;
+    /*border: 1px solid #ccc;*/
+    padding: 1.50rem;
+}
+.form-paso {
+    display: none;
+    transform-origin: top;
+    animation: animate .5s;
+}
+
+.form-paso-activo {
+    display: block;
+}
+
+@keyframes animate {
+    from {
+        transform: scale(1,0);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1,1);
+        opacity: 1;
+    }
+}
+
+/*Estilo de botones*/
+.bnts-group{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+.input-grupo {
+    margin: 2rem 0 2rem 0;
+}
+.btnp{
+    padding: 0.75rem;
+    display: block;
+    text-decoration: none;
+    background-color: var(--primary-color);
+    color: #f3f3f3;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+    width: 100px;
+}
+.btn:hover{
+    box-shadow: 0 0 0 2px #fff, 0 0 0 3px var(--primary-color);
+}
