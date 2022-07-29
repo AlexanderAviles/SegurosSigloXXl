@@ -84,5 +84,43 @@ namespace SegurosSigloXXl.BLSeguroSigloXXl
             }
             return (resultado, e);
         }
+
+        public (string, bool) ModificarCliente(int pIdCliente, int pCedula, string pGenero, DateTime pFecha, string pNombre,
+                                              string pPrimerApellido, string pSegundoApellido, int pTelefono,
+                                              string pCorreo, string pDireccionFisica, int pIdProvincia, int pIdCanton,
+                                              int pIdDistrito, string pContrasenia, string pTipoUsuario)
+        {
+            /// Variable que registra la cantidad de registros afectados
+            /// si un procedimiento que ejecuta insert, update o delete
+            /// no afecta registros implica que huebo un error
+            int RegistrosAfectados = 0;
+            string resultado = "";
+            bool e;
+            try
+            {
+                RegistrosAfectados = DBSeguros.pa_Clientes_Update(pIdCliente, pCedula, pGenero, pFecha, pNombre, pPrimerApellido,
+                                                                  pSegundoApellido, pTelefono, pCorreo, pDireccionFisica,
+                                                                  pIdProvincia, pIdCanton, pIdDistrito, pContrasenia, pTipoUsuario);
+            }
+            catch (Exception Error)
+            {
+                resultado = "Ocurrio un error " + Error.Message;
+            }
+            finally
+            {
+                if (RegistrosAfectados > 0)
+                {
+                    resultado = " Cliente modificado correctamente";
+                    e = false;
+                }
+
+                else
+                {
+                    resultado += " No se pudo modificar el cliente";
+                    e = true;
+                }
+            }
+            return (resultado, e);
+        }
     }
 }

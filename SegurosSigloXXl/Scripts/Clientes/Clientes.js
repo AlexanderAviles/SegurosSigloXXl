@@ -1,12 +1,16 @@
 ﻿
 // Asignacion de elementos a variables.
-var BtnModificar = $("#BtnModificar");
+var BtnModificar = $("#btnModificar");
 var BtnCancelar = $("#BtnCancelar");
 var BtnCancelarFiltro = $("#BtnCancelarFiltro");
 var Buscador = $("#Buscador");
 var Tabla = $("#Tabla");
 var Guardar = $("#Guardar");
+var FormPaso1 = $("#Form-Paso1");
+var FormPaso2 = $("#Form-Paso2");
+var FormPaso3 = $("#Form-Paso3");
 var FormPaso4 = $("#Form-Paso4");
+
 
 /*
     Funciones importadas de los otros archivos .js
@@ -14,10 +18,15 @@ var FormPaso4 = $("#Form-Paso4");
 */
 import { estableceEventosChange } from './Geografia.js';
 import { cargaDropdownListProvincias } from './Geografia.js';
+import { cargaDropdownListCantones } from './Geografia.js';
+import { cargaDropdownListDistrito } from './Geografia.js';
+import { FormatoCadena } from './Geografia.js';
 import { paquetePasos } from './Pasos.js';
+import { CrearElementosjQuery } from './ElementosjQueryUI.js';
+import { BtnExpandir } from './ElementosjQueryUI.js';
 
 $(function () {
-
+    BtnModificar.hide();
     // Refresca la tabla de clientes, en este caso,
     // por ser la primera vez que se carga la pagina,
     // se cargan todos los existentes.
@@ -33,6 +42,8 @@ $(function () {
 
     cargaDropdownListProvincias();
 
+    CrearElementosjQuery();
+
     paquetePasos();
 
     AccionesBotonesCliente();
@@ -47,9 +58,9 @@ function AccionesBotonesCliente() {
     });
 
     Guardar.click(function () {
-        if (FormPaso4.valid()) {
+        if (FormPaso1.valid() && FormPaso2.valid() &&FormPaso3.valid() && FormPaso4.valid()) {
+            $("#divDialog").dialog("open");
             InsertarPost();
-
             AnimacionTabla();
         }
 
@@ -91,24 +102,25 @@ function ProcesarDatos(data) {
 
     var CuerpoTabla = $("#CuerpoTabla");
     CuerpoTabla.empty();
-
+    var TipoUsuario = $("#TipoUsuario").val();
     if (data.length > 0) {
         $(data).each(function () {
 
             var Cliente = this;
-            var anio = new Date().getFullYear(Cliente.FechaNacimiento);
-            var mes = new Date().getMonth(Cliente.FechaNacimiento);
-            var dia = new Date().getDate(Cliente.FechaNacimiento);
+
             var Clientes = '<tr>'
             Clientes += '<td>' + Cliente.Cedula + '</td>';
             Clientes += '<td>' + Cliente.Nombre + ' ' + Cliente.PrimerApellido + ' ' + Cliente.SegundoApellido + '</td>'
             Clientes += '<td>' + Cliente.Genero + '</td>'
-            Clientes += '<td>' + Cliente.Provincia + ' ' + Cliente.Canton + ' ' + Cliente.Distrito + '</td>'
+            Clientes += '<td>' + FormatoCadena(Cliente.Provincia) + ', ' + FormatoCadena(Cliente.Canton) + ', ' + FormatoCadena(Cliente.Distrito) + '</td>'
             Clientes += '<td>' + Cliente.DireccionFisica + '</td>'
-            Clientes += '<td>' + dia + '/' + mes + '/' + anio + '</td>'
+            //Clientes += '<td>' + dia + '/' + mes + '/' + anio + '</td>'
+            Clientes += '<td>' + moment(Cliente.FechaNacimiento).format('DD/MM/YYYY') +'</td>'
             Clientes += '<td>' + Cliente.Correo + '</td>'
-            Clientes += '<td><a onclick="ModificarCliente(' + Cliente.IdCliente + ');" class="btn btn-warning" title="Modificar"><i class="bi bi-pencil"></i></a></td>'
-            Clientes += '<td><a onclick="EliminarCliente(' + Cliente.IdCliente + ');" class="btn btn-danger" title="Eliminar"><i class="bi bi-file-earmark-x"></i></a></td>'
+            if (TipoUsuario == "Colaborador") {
+                Clientes += '<td><a onclick="ModificarCliente(' + Cliente.IdCliente + ');" class="btn btn-warning" title="Modificar"><i class="bi bi-pencil"></i></a></td>'
+                Clientes += '<td><a onclick="EliminarCliente(' + Cliente.IdCliente + ');" class="btn btn-danger" title="Eliminar"><i class="bi bi-file-earmark-x"></i></a></td>'
+            }
             Clientes += '</tr>';
             CuerpoTabla.append(Clientes);
         });
@@ -121,6 +133,7 @@ function ProcesarDatos(data) {
 
 
 }
+
 
 // Funcion utilizada para buscar en la tabla por nombre de cliente.
 function BucarCliente() {
@@ -156,10 +169,11 @@ function AnimacionTabla() {
 // Funcion que se encarga de mandar los datos al metodo del controlador
 // para insertar los clientes a la base de datos.
 function InsertarPost() {
+    
     var url = "/Clientes/InsertaCliente";
     var Datos = {
         Cedula: $("#Cedula").val(),
-        Genero: $("#Genero").val(),
+        Genero: $('input:radio[name=rbSexo]:checked').val(),
         Nombre: $("#Nombre").val(),
         PrimerApellido: $("#PrimerApellido").val(),
         SegundoApellido: $("#SegundoApellido").val(),
@@ -170,7 +184,7 @@ function InsertarPost() {
         Telefono: $("#Telefono").val(),
         Correo: $("#Correo").val(),
         FechaNacimiento: $("#FechaNacimiento").val(),
-        TipoUsuario: $("#TipoUsuario").val(),
+        TipoUsuario: $('input:radio[name=rbTipo]:checked').val(),
         Contrasenia: ContraseniaRandom()
     }
 
@@ -181,6 +195,8 @@ function InsertarPost() {
         contentType: 'application/json',
         data: JSON.stringify(Datos),
         success: function (data, textStatus, jQxhr) {
+            $("#divDialog").dialog("close");
+            $("#Formulario").dialog("close");
             MensajeInsertar(data);
             AnimacionTabla();
         },
@@ -271,9 +287,163 @@ window.EliminarCliente = function (Id) {
     });
 }
 
-window.ModificarCliente = function(Id) {
-    alert("Modificado");
+function CargarDatos(IdCliente) {
+    // Direccion donde se enviaran los datos.
+    var url = "/Clientes/CargarDatosCliente";
+
+    // Capatura el Id de la adiccion que se eliminara.
+    var Id = { IdCliente: IdCliente }
+
+    $.ajax({
+        url: url,
+        dataType: 'json',
+        type: 'post',
+        contentType: 'application/json',
+        data: JSON.stringify(Id),
+        success: function (data, textStatus, jQxhr) {
+
+            // Carga los datos obtenidos de la adiccion al formulario
+            ProcesarDatosModificables(data);
+
+            //// Refresca la tabla de adicciones
+            //CargarCatalogoAdicciones("");
+
+            //// Anima la tabla cuando se esta realizando la busqueda.
+            //AnimacionTabla();
+        },
+        error: function () {
+            alert(errorThrown);
+        }
+    });
 }
+// Funcion que se encargar de mandar el Id de la adiccion al metodo del controlador
+// para que este pueda  editar la adiccion.
+function ModificarPost(IdCliente) {
+    // Direccion donde se enviaran los datos.
+    var url = "/Clientes/ModificarCliente";
+
+    // Captura de datos que se modificaran.
+    var Datos = {
+        IdCliente: IdCliente,
+        Cedula: $("#Cedula").val(),
+        Genero: $('input:radio[name=rbSexo]:checked').val(),
+        Nombre: $("#Nombre").val(),
+        PrimerApellido: $("#PrimerApellido").val(),
+        SegundoApellido: $("#SegundoApellido").val(),
+        IdProvincia: $("#Provincia").val(),
+        IdCanton: $("#Canton").val(),
+        IdDistrito: $("#Distrito").val(),
+        DireccionFisica: $("#Direccion").val(),
+        Telefono: $("#Telefono").val(),
+        Correo: $("#Correo").val(),
+        FechaNacimiento: $("#FechaNacimiento").val(),
+        TipoUsuario: $('input:radio[name=rbTipo]:checked').val(),
+        Contrasenia: ContraseniaRandom()
+    }
+
+    $.ajax({
+        url: url,
+        dataType: 'json',
+        type: 'post',
+        contentType: 'application/json',
+        data: JSON.stringify(Datos),
+        success: function (data, textStatus, jQxhr) {
+            // Mensaje el cual muestra si se realizo con exito la modificacion de datos.
+            MensajeModificar(data);
+
+            // Refresca la tabla de clientes.
+            CargarListaClientes("");
+
+            // Anima la tabla cuando se esta realizando una busqueda,
+            AnimacionTabla();
+        },
+        error: function () {
+            alert(errorThrown);
+        }
+    })
+}
+
+// Carga los datos actuales en el formulario para poder ser modificados.
+function ProcesarDatosModificables(data) {
+
+    cargaDropdownListCantones(data.IdProvincia);
+
+    cargaDropdownListDistrito(data.IdCanton);
+
+    $("#Cedula").val(data.Cedula);
+
+    if (data.Genero == "F") {
+        $('#rbSexo1').attr('checked', 'checked');
+        $('#rbSexo-1').addClass("ui-checkboxradio-checked");
+        $('#rbSexo-1').addClass("ui-state-active");
+    }
+     
+    if (data.Genero == "M") {
+        $('#rbSexo2').attr('checked', 'checked');
+        $('#rbSexo-2').addClass("ui-checkboxradio-checked");
+        $('#rbSexo-2').addClass("ui-state-active");
+
+    }
+
+    /*$("#Genero").val(data.Genero);*/
+    $("#Nombre").val(data.Nombre);
+    $("#PrimerApellido").val(data.PrimerApellido);
+    $("#SegundoApellido").val(data.SegundoApellido);
+    $("#Provincia").val(data.IdProvincia);
+    $("#Canton").val(data.IdCanton);
+    $("#Distrito").val(data.IdDistrito);
+    $("#Direccion").val(data.DireccionFisica);
+    $("#Telefono").val(data.Telefono);
+    $("#Correo").val(data.Correo);
+
+    var anio = new Date().getFullYear(data.FechaNacimiento);
+    var mes = new Date().getMonth(data.FechaNacimiento);
+    var dia = new Date().getDate(data.FechaNacimiento);
+
+    $("#FechaNacimiento").val(dia+"/"+mes+"/"+anio );
+
+    if (data.TipoUsuario == "Administrador") {
+        $('#rbTipo1').attr('checked', 'checked');
+        $('#rbTipo-1').addClass("ui-checkboxradio-checked");
+        $('#rbTipo-1').addClass("ui-state-active");
+    }
+
+    if (data.TipoUsuario == "Colaborador") {
+        $('#rbTipo2').attr('checked', 'checked');
+        $('#rbTipo-2').addClass("ui-checkboxradio-checked");
+        $('#rbTipo-2').addClass("ui-state-active");
+    }
+}
+
+window.ModificarCliente = function (Id) {
+    // No importa la localizacion de la pagina, siempre que se quiera modificar una adiccion
+    // se llevara al usuario a la parte superior de la pagina (top)
+    BtnExpandir.trigger("click");
+    // Muestra el formulario.
+    //DivForm.slideDown();
+    // Oculta el boton de insertar.
+    //BtnInsertar.hide();
+    // muestra el boton de modificar.
+/*    BtnModificar.show();*/
+    // Carga los datos del cliente seleccionado.
+    CargarDatos(Id);
+
+    Guardar.hide();
+
+    BtnModificar.show();
+
+    // Cuando se le de click al boton modificar, modificara los datos de la adiccion.
+    BtnModificar.click(function () {
+        if (FormPaso1.valid() && FormPaso2.valid() && FormPaso3.valid() && FormPaso4.valid()) {
+            $("#divDialog").dialog("open");
+            ModificarPost(Id);
+            InsertarPost();
+            AnimacionTabla();
+        }
+
+    });
+}
+
 // Mensajes que se mostraran al usuario si insertar una nueva adiccion
 // a la base de datos o si esta misma produjo un error.
 function MensajeInsertar(data) {
@@ -327,7 +497,7 @@ function MensajeModificar(data) {
     if (error == false) {
         Swal.fire({
             icon: 'success',
-            title: 'Adiccion modificada',
+            title: 'Cliente modificado',
             text: mensaje
         }).then((result) => {
             // Cuando el usuario de click en "ok" se recargara la pagina

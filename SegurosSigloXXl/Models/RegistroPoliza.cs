@@ -19,7 +19,6 @@ namespace SegurosSigloXXl.Models
         public int IdCliente { get; set; }
         public float MontoAsegurado { get; set; }
         public float PorcentajeCobertura { get; set; }
-        public int NumeroAdicciones { get; set; }
         public float MontoAdicciones { get; set; }
         public float PrimaAntesImpuesto { get; set; }
         public float Impuesto { get; set; }

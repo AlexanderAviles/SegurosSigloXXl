@@ -13,12 +13,13 @@ namespace SegurosSigloXXl.Models
     
     public partial class pa_RegistroPoliza_Select_Result
     {
-        public int IdRegistro { get; set; }
-        public string NombrePoliza { get; set; }
+        public int IdRegistroPoliza { get; set; }
+        public int IdCoberturaPoliza { get; set; }
+        public string NombreCobertura { get; set; }
+        public int IdCliente { get; set; }
         public string NombreCliente { get; set; }
         public float MontoAsegurado { get; set; }
         public float PorcentajeCobertura { get; set; }
-        public int NumeroAdicciones { get; set; }
         public float MontoAdicciones { get; set; }
         public float PrimaAntesImpuesto { get; set; }
         public float Impuesto { get; set; }

@@ -22,9 +22,9 @@ namespace SegurosSigloXXl.Clases
                 $"<h2><b>Estimado cliente:</b> {pCliente}</h2>" +
                 "<span>Gracias por confiar en en Seguros el Equipo del Siglo XXI. Para nosotros es un placer servirle.</span>" +
                 "<br/><span>A continuación, sus credenciales para ingresar a la aplicación:</span>" +
-                $"<br/><h3><b><b>Sitio web:</b> www.segurossigloxxl.com</h3>" +
-                $"<h3><b>Usuario:</b> {pCorreoElectronico}" +
-                $"<h3><b>Contraseña:</b> {pContrasenia}</h3>" +
+                $"<br/><h3>Sitio web:</b> www.segurossigloxxl.com</h3>" +
+                $"<h3>Usuario: {pCorreoElectronico}" +
+                $"<h3>Contraseña: {pContrasenia}</h3>" +
                 "<br/><br/><span>Seguros El Equipo del Siglo XXI le desea un buen dia.</span>" +
                 //"<br/><br/><img src='"+img+"' height='250px' width='250px' />" +
                 "<br/><br/><br/><br/><span><b>Mensaje autogenerado, por favor no responder.</b></span>" +

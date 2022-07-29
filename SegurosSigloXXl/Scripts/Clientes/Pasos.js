@@ -23,7 +23,7 @@ export function paquetePasos() {
 
 function AccionesBotonesPasos() {
     BtnExpandir.click(function () {
-        DivForm.toggle('slow');
+/*        DivForm.toggle('slow');*/
     });
 
 }
@@ -90,7 +90,7 @@ function ValidacionesForm3() {
                 required: true,
                 maxlength: 50
             },
-            Genero: {
+            rbSexo: {
                 required: true,
             }
         }
@@ -101,9 +101,8 @@ function ValidacionesForm3() {
 function ValidacionesForm4() {
     FormPaso4.validate({
         rules: {
-            TipoUsuario: {
+            rbTipo: {
                 required: true,
-                maxlength: 50
             }
         }
     });

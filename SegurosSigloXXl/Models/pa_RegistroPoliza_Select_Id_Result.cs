@@ -10,20 +10,12 @@
 namespace SegurosSigloXXl.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class CoberturaPoliza
+    public partial class pa_RegistroPoliza_Select_Id_Result
     {
-        public CoberturaPoliza()
-        {
-            this.RegistroPoliza = new HashSet<RegistroPoliza>();
-        }
-    
+        public int IdRegistroPoliza { get; set; }
         public int IdCoberturaPoliza { get; set; }
-        public string Nombre { get; set; }
-        public string Descripcion { get; set; }
-        public float Porcentaje { get; set; }
-    
-        public virtual ICollection<RegistroPoliza> RegistroPoliza { get; set; }
+        public int IdCliente { get; set; }
+        public float MontoAsegurado { get; set; }
     }
 }

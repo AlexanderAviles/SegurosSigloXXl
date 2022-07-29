@@ -54,20 +54,20 @@ export function cargaDropdownListProvincias() {
  * toma el resultado del método RetornaProvincias
  * y lo procesa, recorriendo cada posición
  */
-function procesarResultadoProvincias(data) {
+export function procesarResultadoProvincias(data) {
     var ddlProvincias = $("#Provincia");
     ddlProvincias.empty();
     var NuevaOpcion = "<option value=''>Seleccione una provincia</option>"
     ddlProvincias.append(NuevaOpcion);
     $(data).each(function () {
         var ProvinciaActual = this;
-        NuevaOpcion = "<option value='" + ProvinciaActual.id_Provincia + "'>" + ProvinciaActual.nombre + "</option>"
+        NuevaOpcion = "<option value='" + ProvinciaActual.id_Provincia + "'>" + FormatoCadena(ProvinciaActual.nombre) + "</option>"
         ddlProvincias.append(NuevaOpcion);
     });
 }
 
 ///carga los registros de los cantones
-function cargaDropdownListCantones(pIdProvincia) {
+export function cargaDropdownListCantones(pIdProvincia) {
 
     ///dirección a donde se enviarán los datos
     var url = '/Clientes/CantonSelect';
@@ -92,19 +92,19 @@ function cargaDropdownListCantones(pIdProvincia) {
 }
 
 
-function procesarResultadoCantones(data) {
+export function procesarResultadoCantones(data) {
     var ddlCantones = $("#Canton");
     ddlCantones.empty();
     var nuevaOpcion = "<option value=''>Seleccione uin cantón</option>";
     $(data).each(function () {
         var cantonActual = this;
-        nuevaOpcion = "<option value='" + cantonActual.id_Canton + "'>" + cantonActual.nombre + "</option>";
+        nuevaOpcion = "<option value='" + cantonActual.id_Canton + "'>" + FormatoCadena(cantonActual.nombre) + "</option>";
         ddlCantones.append(nuevaOpcion);
     });
 }
 
 ///carga los registros de los cantones
-function cargaDropdownListDistrito(pIdCanton) {
+export function cargaDropdownListDistrito(pIdCanton) {
 
     ///dirección a donde se enviarán los datos
     var url = '/Clientes/DistritoSelect';
@@ -128,7 +128,7 @@ function cargaDropdownListDistrito(pIdCanton) {
     });
 }
 
-function procesarResultadoDistritos(data) {
+export function procesarResultadoDistritos(data) {
 
     var ddlDistritos = $("#Distrito");
 
@@ -138,7 +138,13 @@ function procesarResultadoDistritos(data) {
 
     $(data).each(function () {
         var distritoActual = this;
-        nuevaOpcion = "<option value='" + distritoActual.id_Canton + "'>" + distritoActual.nombre + "</option>";
+        nuevaOpcion = "<option value='" + distritoActual.id_Canton + "'>" + FormatoCadena(distritoActual.nombre) + "</option>";
         ddlDistritos.append(nuevaOpcion);
     });
+}
+
+// Convierte las cadenas en mayusculas y minusculas
+// Primer mayuscula y resto minusculas
+export function FormatoCadena(Cadena) {
+    return Cadena.charAt(0).toUpperCase() + Cadena.slice(1).toLowerCase();
 }

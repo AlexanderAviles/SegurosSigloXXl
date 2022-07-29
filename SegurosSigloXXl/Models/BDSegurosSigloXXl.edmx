@@ -67,9 +67,9 @@
             <PropertyRef Name="IdCoberturaPoliza" />
           </Key>
           <Property Name="IdCoberturaPoliza" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nombre" Type="varchar" MaxLength="50" />
-          <Property Name="Descripcion" Type="varchar" MaxLength="150" />
-          <Property Name="Porcentaje" Type="real" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Porcentaje" Type="real" Nullable="false" />
         </EntityType>
         <EntityType Name="Distrito">
           <Key>
@@ -106,7 +106,6 @@
           <Property Name="IdCliente" Type="int" Nullable="false" />
           <Property Name="MontoAsegurado" Type="real" Nullable="false" />
           <Property Name="PorcentajeCobertura" Type="real" Nullable="false" />
-          <Property Name="NumeroAdicciones" Type="int" Nullable="false" />
           <Property Name="MontoAdicciones" Type="real" Nullable="false" />
           <Property Name="PrimaAntesImpuesto" Type="real" Nullable="false" />
           <Property Name="Impuesto" Type="real" Nullable="false" />
@@ -278,9 +277,7 @@
           <Parameter Name="IdAdiccionCliente" Type="int" Mode="In" />
           <Parameter Name="IdAdiccion" Type="int" Mode="In" />
         </Function>
-        <Function Name="pa_AdiccionesEncabezado_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="IdCliente" Type="int" Mode="In" />
-        </Function>
+        <Function Name="pa_AdiccionesEncabezado_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pa_AdiccionesEncabezado_Select_Id" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdCliente" Type="int" Mode="In" />
         </Function>
@@ -358,15 +355,14 @@
         <Function Name="pa_CoberturaPoliza_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Nombre" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="pa_CoberturaPoliza_Select_Id" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdCoberturaPoliza" Type="int" Mode="In" />
+        </Function>
         <Function Name="pa_CoberturaPoliza_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdCobertura" Type="int" Mode="In" />
           <Parameter Name="NombreCobertura" Type="varchar" Mode="In" />
           <Parameter Name="Descripcion" Type="varchar" Mode="In" />
           <Parameter Name="Porcentaje" Type="real" Mode="In" />
-        </Function>
-        <Function Name="pa_Distrito_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="nombre" Type="varchar" Mode="In" />
-          <Parameter Name="id_Canton" Type="int" Mode="In" />
         </Function>
         <Function Name="pa_Distritos_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="nombre" Type="varchar" Mode="In" />
@@ -382,15 +378,18 @@
           <Parameter Name="IdCobertura" Type="int" Mode="In" />
           <Parameter Name="IdCliente" Type="int" Mode="In" />
           <Parameter Name="MontoAsegurado" Type="real" Mode="In" />
-          <Parameter Name="NumeroAdicciones" Type="int" Mode="In" />
         </Function>
-        <Function Name="pa_RegistroPoliza_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="pa_RegistroPoliza_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+        <Function Name="pa_RegistroPoliza_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NombrePoliza" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pa_RegistroPoliza_Select_Id" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdRegistroPoliza" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pa_RegistroPoliza_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdRegistro" Type="int" Mode="In" />
           <Parameter Name="IdCobertura" Type="int" Mode="In" />
           <Parameter Name="IdCliente" Type="int" Mode="In" />
           <Parameter Name="MontoAsegurado" Type="real" Mode="In" />
-          <Parameter Name="NumeroAdicciones" Type="int" Mode="In" />
         </Function>
         <Function Name="pa_Usuarios_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="NombreUsuario" Type="varchar" Mode="In" />
@@ -544,17 +543,7 @@
           <NavigationProperty Name="Canton" Relationship="Self.FK_Clientes_Canton" FromRole="Clientes" ToRole="Canton" />
           <NavigationProperty Name="Distrito" Relationship="Self.FK_Clientes_Distrito" FromRole="Clientes" ToRole="Distrito" />
           <NavigationProperty Name="Provincia" Relationship="Self.FK_Clientes_Provincia" FromRole="Clientes" ToRole="Provincia" />
-          <NavigationProperty Name="RegistroPoliza" Relationship="Self.FK_RegistroPoliza_Clientes" FromRole="Clientes" ToRole="RegistroPoliza" />
-        </EntityType>
-        <EntityType Name="CoberturaPoliza">
-          <Key>
-            <PropertyRef Name="IdCoberturaPoliza" />
-          </Key>
-          <Property Name="IdCoberturaPoliza" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Descripcion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="Porcentaje" Type="Single" />
-          <NavigationProperty Name="RegistroPoliza" Relationship="Self.FK_RegistroPoliza_CoberturaPoliza" FromRole="CoberturaPoliza" ToRole="RegistroPoliza" />
+          <NavigationProperty Name="RegistroPoliza" Relationship="SegurosSigloXXlModel.FK_RegistroPoliza_Clientes" FromRole="Clientes" ToRole="RegistroPoliza" />
         </EntityType>
         <EntityType Name="Distrito">
           <Key>
@@ -585,23 +574,6 @@
           <Property Name="vc_Estado" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Canton" Relationship="Self.Canton_ref_Provincia" FromRole="Provincia" ToRole="Canton" />
           <NavigationProperty Name="Clientes" Relationship="Self.FK_Clientes_Provincia" FromRole="Provincia" ToRole="Clientes" />
-        </EntityType>
-        <EntityType Name="RegistroPoliza">
-          <Key>
-            <PropertyRef Name="IdRegistroPoliza" />
-          </Key>
-          <Property Name="IdRegistroPoliza" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdCoberturaPoliza" Type="Int32" Nullable="false" />
-          <Property Name="IdCliente" Type="Int32" Nullable="false" />
-          <Property Name="MontoAsegurado" Type="Single" Nullable="false" />
-          <Property Name="PorcentajeCobertura" Type="Single" Nullable="false" />
-          <Property Name="NumeroAdicciones" Type="Int32" Nullable="false" />
-          <Property Name="MontoAdicciones" Type="Single" Nullable="false" />
-          <Property Name="PrimaAntesImpuesto" Type="Single" Nullable="false" />
-          <Property Name="Impuesto" Type="Single" Nullable="false" />
-          <Property Name="PrimaFinal" Type="Single" Nullable="false" />
-          <NavigationProperty Name="Clientes" Relationship="Self.FK_RegistroPoliza_Clientes" FromRole="RegistroPoliza" ToRole="Clientes" />
-          <NavigationProperty Name="CoberturaPoliza" Relationship="Self.FK_RegistroPoliza_CoberturaPoliza" FromRole="RegistroPoliza" ToRole="CoberturaPoliza" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -706,40 +678,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_RegistroPoliza_Clientes">
-          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
-          <End Role="RegistroPoliza" Type="Self.RegistroPoliza" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Clientes">
-              <PropertyRef Name="IdCliente" />
-            </Principal>
-            <Dependent Role="RegistroPoliza">
-              <PropertyRef Name="IdCliente" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_RegistroPoliza_CoberturaPoliza">
-          <End Role="CoberturaPoliza" Type="Self.CoberturaPoliza" Multiplicity="1" />
-          <End Role="RegistroPoliza" Type="Self.RegistroPoliza" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CoberturaPoliza">
-              <PropertyRef Name="IdCoberturaPoliza" />
-            </Principal>
-            <Dependent Role="RegistroPoliza">
-              <PropertyRef Name="IdCoberturaPoliza" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="SegurosSigloXXlEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Adicciones" EntityType="Self.Adicciones" />
           <EntitySet Name="AdiccionesDetalle" EntityType="Self.AdiccionesDetalle" />
           <EntitySet Name="AdiccionesEncabezado" EntityType="Self.AdiccionesEncabezado" />
           <EntitySet Name="Canton" EntityType="Self.Canton" />
           <EntitySet Name="Clientes" EntityType="Self.Clientes" />
-          <EntitySet Name="CoberturaPoliza" EntityType="Self.CoberturaPoliza" />
           <EntitySet Name="Distrito" EntityType="Self.Distrito" />
           <EntitySet Name="Provincia" EntityType="Self.Provincia" />
-          <EntitySet Name="RegistroPoliza" EntityType="Self.RegistroPoliza" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
           <AssociationSet Name="FK_AdiccionesDetalle_Adicciones1" Association="Self.FK_AdiccionesDetalle_Adicciones1">
@@ -769,14 +715,6 @@
           <AssociationSet Name="FK_Clientes_Provincia" Association="Self.FK_Clientes_Provincia">
             <End Role="Provincia" EntitySet="Provincia" />
             <End Role="Clientes" EntitySet="Clientes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RegistroPoliza_Clientes" Association="Self.FK_RegistroPoliza_Clientes">
-            <End Role="Clientes" EntitySet="Clientes" />
-            <End Role="RegistroPoliza" EntitySet="RegistroPoliza" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RegistroPoliza_CoberturaPoliza" Association="Self.FK_RegistroPoliza_CoberturaPoliza">
-            <End Role="CoberturaPoliza" EntitySet="CoberturaPoliza" />
-            <End Role="RegistroPoliza" EntitySet="RegistroPoliza" />
           </AssociationSet>
           <FunctionImport Name="pa_Adicciones_Delete">
           <Parameter Name="IdAdiccion" Mode="In" Type="Int32" />
@@ -817,7 +755,6 @@
             <Parameter Name="IdAdiccion" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pa_AdiccionesEncabezado_Select" ReturnType="Collection(SegurosSigloXXlModel.pa_AdiccionesEncabezado_Select_Result)">
-          <Parameter Name="IdCliente" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pa_AdiccionesEncabezado_Select_Id" ReturnType="Collection(SegurosSigloXXlModel.pa_AdiccionesEncabezado_Select_Id_Result)">
           <Parameter Name="IdCliente" Mode="In" Type="Int32" />
@@ -849,26 +786,6 @@
           <FunctionImport Name="pa_Clientes_Select" ReturnType="Collection(SegurosSigloXXlModel.pa_Clientes_Select_Result)" >
           <Parameter Name="Nombre" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="pa_Clientes_Select_Id" ReturnType="Collection(SegurosSigloXXlModel.pa_Clientes_Select_Id_Result)">
-          <Parameter Name="IdCliente" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="pa_Clientes_Update">
-            <Parameter Name="IdCliente" Mode="In" Type="Int32" />
-            <Parameter Name="Cedula" Mode="In" Type="Int32" />
-            <Parameter Name="Genero" Mode="In" Type="String" />
-            <Parameter Name="FechaNacimiento" Mode="In" Type="DateTime" />
-            <Parameter Name="Nombre" Mode="In" Type="String" />
-            <Parameter Name="PrimerApellido" Mode="In" Type="String" />
-            <Parameter Name="SegundoApellido" Mode="In" Type="String" />
-            <Parameter Name="Telefono" Mode="In" Type="Int32" />
-            <Parameter Name="Correo" Mode="In" Type="String" />
-            <Parameter Name="DireccionFisica" Mode="In" Type="String" />
-            <Parameter Name="IdProvincia" Mode="In" Type="Int32" />
-            <Parameter Name="IdCanton" Mode="In" Type="Int32" />
-            <Parameter Name="IdDistrito" Mode="In" Type="Int32" />
-            <Parameter Name="Contrasenia" Mode="In" Type="String" />
-            <Parameter Name="TipoUsuario" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="pa_CoberturaPoliza_Delete">
           <Parameter Name="IdCobertura" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -878,7 +795,7 @@
             <Parameter Name="Porcentaje" Mode="In" Type="Single" />
           </FunctionImport>
           <FunctionImport Name="pa_CoberturaPoliza_Select" ReturnType="Collection(SegurosSigloXXlModel.pa_CoberturaPoliza_Select_Result)" >
-            <Parameter Name="Nombre" Mode="In" Type="String" />
+          <Parameter Name="Nombre" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pa_CoberturaPoliza_Update">
             <Parameter Name="IdCobertura" Mode="In" Type="Int32" />
@@ -888,23 +805,6 @@
           </FunctionImport>
           <FunctionImport Name="pa_Provincias_Select" ReturnType="Collection(SegurosSigloXXlModel.pa_Provincias_Select_Result)">
           <Parameter Name="nombre" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="pa_RegistroPoliza_Delete">
-          <Parameter Name="IdRegistro" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="pa_RegistroPoliza_Insert">
-            <Parameter Name="IdCobertura" Mode="In" Type="Int32" />
-            <Parameter Name="IdCliente" Mode="In" Type="Int32" />
-            <Parameter Name="MontoAsegurado" Mode="In" Type="Single" />
-            <Parameter Name="NumeroAdicciones" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="pa_RegistroPoliza_Select" ReturnType="Collection(SegurosSigloXXlModel.pa_RegistroPoliza_Select_Result)" />
-          <FunctionImport Name="pa_RegistroPoliza_Update">
-            <Parameter Name="IdRegistroPoliza" Mode="In" Type="Int32" />
-            <Parameter Name="IdCobertura" Mode="In" Type="Int32" />
-            <Parameter Name="IdCliente" Mode="In" Type="Int32" />
-            <Parameter Name="MontoAsegurado" Mode="In" Type="Single" />
-            <Parameter Name="NumeroAdicciones" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pa_Usuarios_Select" ReturnType="Collection(SegurosSigloXXlModel.pa_Usuarios_Select_Result)">
           <Parameter Name="NombreUsuario" Mode="In" Type="String" />
@@ -962,6 +862,59 @@
           <FunctionImport Name="pa_Distrito_Select" ReturnType="Collection(SegurosSigloXXlModel.pa_Distrito_Select_Result)">
             <Parameter Name="nombre" Mode="In" Type="String" />
             <Parameter Name="id_Canton" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pa_CoberturaPoliza_Select_Id" ReturnType="Collection(SegurosSigloXXlModel.pa_CoberturaPoliza_Select_Id_Result)">
+          <Parameter Name="IdCoberturaPoliza" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pa_Clientes_Select_Id" ReturnType="Collection(SegurosSigloXXlModel.pa_Clientes_Select_Id_Result)">
+          <Parameter Name="IdCliente" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pa_Clientes_Update">
+            <Parameter Name="IdCliente" Mode="In" Type="Int32" />
+            <Parameter Name="Cedula" Mode="In" Type="Int32" />
+            <Parameter Name="Genero" Mode="In" Type="String" />
+            <Parameter Name="FechaNacimiento" Mode="In" Type="DateTime" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="PrimerApellido" Mode="In" Type="String" />
+            <Parameter Name="SegundoApellido" Mode="In" Type="String" />
+            <Parameter Name="Telefono" Mode="In" Type="Int32" />
+            <Parameter Name="Correo" Mode="In" Type="String" />
+            <Parameter Name="DireccionFisica" Mode="In" Type="String" />
+            <Parameter Name="IdProvincia" Mode="In" Type="Int32" />
+            <Parameter Name="IdCanton" Mode="In" Type="Int32" />
+            <Parameter Name="IdDistrito" Mode="In" Type="Int32" />
+            <Parameter Name="Contrasenia" Mode="In" Type="String" />
+            <Parameter Name="TipoUsuario" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="CoberturaPoliza" EntityType="SegurosSigloXXlModel.CoberturaPoliza" />
+          <EntitySet Name="RegistroPoliza" EntityType="SegurosSigloXXlModel.RegistroPoliza" />
+          <AssociationSet Name="FK_RegistroPoliza_Clientes" Association="SegurosSigloXXlModel.FK_RegistroPoliza_Clientes">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="RegistroPoliza" EntitySet="RegistroPoliza" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RegistroPoliza_CoberturaPoliza" Association="SegurosSigloXXlModel.FK_RegistroPoliza_CoberturaPoliza">
+            <End Role="CoberturaPoliza" EntitySet="CoberturaPoliza" />
+            <End Role="RegistroPoliza" EntitySet="RegistroPoliza" />
+          </AssociationSet>
+          <FunctionImport Name="pa_RegistroPoliza_Delete">
+            <Parameter Name="IdRegistro" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pa_RegistroPoliza_Insert">
+            <Parameter Name="IdCobertura" Mode="In" Type="Int32" />
+            <Parameter Name="IdCliente" Mode="In" Type="Int32" />
+            <Parameter Name="MontoAsegurado" Mode="In" Type="Single" />
+          </FunctionImport>
+          <FunctionImport Name="pa_RegistroPoliza_Select" ReturnType="Collection(SegurosSigloXXlModel.pa_RegistroPoliza_Select_Result)">
+            <Parameter Name="NombrePoliza" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pa_RegistroPoliza_Select_Id" ReturnType="Collection(SegurosSigloXXlModel.pa_RegistroPoliza_Select_Id_Result)">
+            <Parameter Name="IdRegistroPoliza" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pa_RegistroPoliza_Update">
+            <Parameter Name="IdRegistro" Mode="In" Type="Int32" />
+            <Parameter Name="IdCobertura" Mode="In" Type="Int32" />
+            <Parameter Name="IdCliente" Mode="In" Type="Int32" />
+            <Parameter Name="MontoAsegurado" Mode="In" Type="Single" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="pa_Adicciones_Select_Result">
@@ -1034,21 +987,6 @@
           <Property Type="String" Name="Canton" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="Distrito" Nullable="false" MaxLength="100" />
         </ComplexType>
-        <ComplexType Name="pa_Clientes_Select_Id_Result">
-          <Property Type="Int32" Name="IdCliente" Nullable="false" />
-          <Property Type="Int32" Name="Cedula" Nullable="false" />
-          <Property Type="String" Name="Genero" Nullable="false" MaxLength="1" />
-          <Property Type="DateTime" Name="FechaNacimiento" Nullable="false" />
-          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="PrimerApellido" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="SegundoApellido" Nullable="false" MaxLength="50" />
-          <Property Type="Int32" Name="Telefono" Nullable="false" />
-          <Property Type="String" Name="Correo" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="DireccionFisica" Nullable="false" MaxLength="150" />
-          <Property Type="Int32" Name="IdProvincia" Nullable="false" />
-          <Property Type="Int32" Name="IdCanton" Nullable="false" />
-          <Property Type="Int32" Name="IdDistrito" Nullable="false" />
-        </ComplexType>
         <ComplexType Name="pa_CoberturaPoliza_Select_Result">
           <Property Type="Int32" Name="IdCoberturaPoliza" Nullable="false" />
           <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
@@ -1063,18 +1001,6 @@
           <Property Type="String" Name="usuarioModifica" Nullable="true" MaxLength="50" />
           <Property Type="DateTime" Name="fechaModifica" Nullable="true" Precision="23" />
           <Property Type="String" Name="vc_Estado" Nullable="true" MaxLength="3" />
-        </ComplexType>
-        <ComplexType Name="pa_RegistroPoliza_Select_Result">
-          <Property Type="Int32" Name="IdRegistro" Nullable="false" />
-          <Property Type="String" Name="NombrePoliza" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="NombreCliente" Nullable="false" MaxLength="152" />
-          <Property Type="Single" Name="MontoAsegurado" Nullable="false" />
-          <Property Type="Single" Name="PorcentajeCobertura" Nullable="false" />
-          <Property Type="Int32" Name="NumeroAdicciones" Nullable="false" />
-          <Property Type="Single" Name="MontoAdicciones" Nullable="false" />
-          <Property Type="Single" Name="PrimaAntesImpuesto" Nullable="false" />
-          <Property Type="Single" Name="Impuesto" Nullable="false" />
-          <Property Type="Single" Name="PrimaFinal" Nullable="false" />
         </ComplexType>
         <ComplexType Name="pa_Usuarios_Select_Result">
           <Property Type="Int32" Name="IdUsuario" Nullable="false" />
@@ -1116,6 +1042,99 @@
           <Property Type="DateTime" Name="fechaModifica" Nullable="true" Precision="23" />
           <Property Type="String" Name="vc_Estado" Nullable="true" MaxLength="3" />
           <Property Type="Int32" Name="id_DistritoInec" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pa_CoberturaPoliza_Select_Id_Result">
+          <Property Type="Int32" Name="IdCoberturaPoliza" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="150" />
+          <Property Type="Single" Name="Porcentaje" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pa_Clientes_Select_Id_Result">
+          <Property Type="Int32" Name="IdCliente" Nullable="false" />
+          <Property Type="Int32" Name="Cedula" Nullable="false" />
+          <Property Type="String" Name="Genero" Nullable="false" MaxLength="1" />
+          <Property Type="DateTime" Name="FechaNacimiento" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="PrimerApellido" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="SegundoApellido" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Telefono" Nullable="false" />
+          <Property Type="String" Name="Correo" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="DireccionFisica" Nullable="false" MaxLength="150" />
+          <Property Type="Int32" Name="IdProvincia" Nullable="false" />
+          <Property Type="Int32" Name="IdCanton" Nullable="false" />
+          <Property Type="Int32" Name="IdDistrito" Nullable="false" />
+          <Property Type="String" Name="TipoUsuario" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="Contrasenia" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="NombreUsuario" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <EntityType Name="CoberturaPoliza">
+          <Key>
+            <PropertyRef Name="IdCoberturaPoliza" />
+          </Key>
+          <Property Name="IdCoberturaPoliza" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Porcentaje" Type="Single" Nullable="false" />
+          <NavigationProperty Name="RegistroPoliza" Relationship="SegurosSigloXXlModel.FK_RegistroPoliza_CoberturaPoliza" FromRole="CoberturaPoliza" ToRole="RegistroPoliza" />
+        </EntityType>
+        <EntityType Name="RegistroPoliza">
+          <Key>
+            <PropertyRef Name="IdRegistroPoliza" />
+          </Key>
+          <Property Name="IdRegistroPoliza" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdCoberturaPoliza" Type="Int32" Nullable="false" />
+          <Property Name="IdCliente" Type="Int32" Nullable="false" />
+          <Property Name="MontoAsegurado" Type="Single" Nullable="false" />
+          <Property Name="PorcentajeCobertura" Type="Single" Nullable="false" />
+          <Property Name="MontoAdicciones" Type="Single" Nullable="false" />
+          <Property Name="PrimaAntesImpuesto" Type="Single" Nullable="false" />
+          <Property Name="Impuesto" Type="Single" Nullable="false" />
+          <Property Name="PrimaFinal" Type="Single" Nullable="false" />
+          <NavigationProperty Name="Clientes" Relationship="SegurosSigloXXlModel.FK_RegistroPoliza_Clientes" FromRole="RegistroPoliza" ToRole="Clientes" />
+          <NavigationProperty Name="CoberturaPoliza" Relationship="SegurosSigloXXlModel.FK_RegistroPoliza_CoberturaPoliza" FromRole="RegistroPoliza" ToRole="CoberturaPoliza" />
+        </EntityType>
+        <Association Name="FK_RegistroPoliza_Clientes">
+          <End Type="SegurosSigloXXlModel.Clientes" Role="Clientes" Multiplicity="1" />
+          <End Type="SegurosSigloXXlModel.RegistroPoliza" Role="RegistroPoliza" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="RegistroPoliza">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RegistroPoliza_CoberturaPoliza">
+          <End Type="SegurosSigloXXlModel.CoberturaPoliza" Role="CoberturaPoliza" Multiplicity="1" />
+          <End Type="SegurosSigloXXlModel.RegistroPoliza" Role="RegistroPoliza" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CoberturaPoliza">
+              <PropertyRef Name="IdCoberturaPoliza" />
+            </Principal>
+            <Dependent Role="RegistroPoliza">
+              <PropertyRef Name="IdCoberturaPoliza" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="pa_RegistroPoliza_Select_Result">
+          <Property Type="Int32" Name="IdRegistroPoliza" Nullable="false" />
+          <Property Type="Int32" Name="IdCoberturaPoliza" Nullable="false" />
+          <Property Type="String" Name="NombreCobertura" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="IdCliente" Nullable="false" />
+          <Property Type="String" Name="NombreCliente" Nullable="false" MaxLength="152" />
+          <Property Type="Single" Name="MontoAsegurado" Nullable="false" />
+          <Property Type="Single" Name="PorcentajeCobertura" Nullable="false" />
+          <Property Type="Single" Name="MontoAdicciones" Nullable="false" />
+          <Property Type="Single" Name="PrimaAntesImpuesto" Nullable="false" />
+          <Property Type="Single" Name="Impuesto" Nullable="false" />
+          <Property Type="Single" Name="PrimaFinal" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pa_RegistroPoliza_Select_Id_Result">
+          <Property Type="Int32" Name="IdRegistroPoliza" Nullable="false" />
+          <Property Type="Int32" Name="IdCoberturaPoliza" Nullable="false" />
+          <Property Type="Int32" Name="IdCliente" Nullable="false" />
+          <Property Type="Single" Name="MontoAsegurado" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1185,16 +1204,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CoberturaPoliza">
-            <EntityTypeMapping TypeName="SegurosSigloXXlModel.CoberturaPoliza">
-              <MappingFragment StoreEntitySet="CoberturaPoliza">
-                <ScalarProperty Name="IdCoberturaPoliza" ColumnName="IdCoberturaPoliza" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="Porcentaje" ColumnName="Porcentaje" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Distrito">
             <EntityTypeMapping TypeName="SegurosSigloXXlModel.Distrito">
               <MappingFragment StoreEntitySet="Distrito">
@@ -1220,22 +1229,6 @@
                 <ScalarProperty Name="usuarioModifica" ColumnName="usuarioModifica" />
                 <ScalarProperty Name="fechaModifica" ColumnName="fechaModifica" />
                 <ScalarProperty Name="vc_Estado" ColumnName="vc_Estado" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="RegistroPoliza">
-            <EntityTypeMapping TypeName="SegurosSigloXXlModel.RegistroPoliza">
-              <MappingFragment StoreEntitySet="RegistroPoliza">
-                <ScalarProperty Name="IdRegistroPoliza" ColumnName="IdRegistroPoliza" />
-                <ScalarProperty Name="IdCoberturaPoliza" ColumnName="IdCoberturaPoliza" />
-                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
-                <ScalarProperty Name="MontoAsegurado" ColumnName="MontoAsegurado" />
-                <ScalarProperty Name="PorcentajeCobertura" ColumnName="PorcentajeCobertura" />
-                <ScalarProperty Name="NumeroAdicciones" ColumnName="NumeroAdicciones" />
-                <ScalarProperty Name="MontoAdicciones" ColumnName="MontoAdicciones" />
-                <ScalarProperty Name="PrimaAntesImpuesto" ColumnName="PrimaAntesImpuesto" />
-                <ScalarProperty Name="Impuesto" ColumnName="Impuesto" />
-                <ScalarProperty Name="PrimaFinal" ColumnName="PrimaFinal" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1376,26 +1369,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pa_Clientes_Select_Id" FunctionName="SegurosSigloXXlModel.Store.pa_Clientes_Select_Id">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="SegurosSigloXXlModel.pa_Clientes_Select_Id_Result">
-                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
-                <ScalarProperty Name="Cedula" ColumnName="Cedula" />
-                <ScalarProperty Name="Genero" ColumnName="Genero" />
-                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="PrimerApellido" ColumnName="PrimerApellido" />
-                <ScalarProperty Name="SegundoApellido" ColumnName="SegundoApellido" />
-                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
-                <ScalarProperty Name="Correo" ColumnName="Correo" />
-                <ScalarProperty Name="DireccionFisica" ColumnName="DireccionFisica" />
-                <ScalarProperty Name="IdProvincia" ColumnName="IdProvincia" />
-                <ScalarProperty Name="IdCanton" ColumnName="IdCanton" />
-                <ScalarProperty Name="IdDistrito" ColumnName="IdDistrito" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pa_Clientes_Update" FunctionName="SegurosSigloXXlModel.Store.pa_Clientes_Update" />
           <FunctionImportMapping FunctionImportName="pa_CoberturaPoliza_Delete" FunctionName="SegurosSigloXXlModel.Store.pa_CoberturaPoliza_Delete" />
           <FunctionImportMapping FunctionImportName="pa_CoberturaPoliza_Insert" FunctionName="SegurosSigloXXlModel.Store.pa_CoberturaPoliza_Insert" />
           <FunctionImportMapping FunctionImportName="pa_CoberturaPoliza_Select" FunctionName="SegurosSigloXXlModel.Store.pa_CoberturaPoliza_Select">
@@ -1422,25 +1395,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pa_RegistroPoliza_Delete" FunctionName="SegurosSigloXXlModel.Store.pa_RegistroPoliza_Delete" />
-          <FunctionImportMapping FunctionImportName="pa_RegistroPoliza_Insert" FunctionName="SegurosSigloXXlModel.Store.pa_RegistroPoliza_Insert" />
-          <FunctionImportMapping FunctionImportName="pa_RegistroPoliza_Select" FunctionName="SegurosSigloXXlModel.Store.pa_RegistroPoliza_Select">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="SegurosSigloXXlModel.pa_RegistroPoliza_Select_Result">
-                <ScalarProperty Name="IdRegistro" ColumnName="IdRegistro" />
-                <ScalarProperty Name="NombrePoliza" ColumnName="NombrePoliza" />
-                <ScalarProperty Name="NombreCliente" ColumnName="NombreCliente" />
-                <ScalarProperty Name="MontoAsegurado" ColumnName="MontoAsegurado" />
-                <ScalarProperty Name="PorcentajeCobertura" ColumnName="PorcentajeCobertura" />
-                <ScalarProperty Name="NumeroAdicciones" ColumnName="NumeroAdicciones" />
-                <ScalarProperty Name="MontoAdicciones" ColumnName="MontoAdicciones" />
-                <ScalarProperty Name="PrimaAntesImpuesto" ColumnName="PrimaAntesImpuesto" />
-                <ScalarProperty Name="Impuesto" ColumnName="Impuesto" />
-                <ScalarProperty Name="PrimaFinal" ColumnName="PrimaFinal" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pa_RegistroPoliza_Update" FunctionName="SegurosSigloXXlModel.Store.pa_RegistroPoliza_Update" />
           <FunctionImportMapping FunctionImportName="pa_Usuarios_Select" FunctionName="SegurosSigloXXlModel.Store.pa_Usuarios_Select">
             <ResultMapping>
               <ComplexTypeMapping TypeName="SegurosSigloXXlModel.pa_Usuarios_Select_Result">
@@ -1492,22 +1446,94 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pa_Clientes_Insert" FunctionName="SegurosSigloXXlModel.Store.pa_Clientes_Insert" />
-          <FunctionImportMapping FunctionImportName="pa_Distrito_Select" FunctionName="SegurosSigloXXlModel.Store.pa_Distrito_Select">
+          <FunctionImportMapping FunctionImportName="pa_CoberturaPoliza_Select_Id" FunctionName="SegurosSigloXXlModel.Store.pa_CoberturaPoliza_Select_Id">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SegurosSigloXXlModel.pa_Distrito_Select_Result">
-                <ScalarProperty Name="id_Distrito" ColumnName="id_Distrito" />
-                <ScalarProperty Name="id_Canton" ColumnName="id_Canton" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="Canton" ColumnName="Canton" />
-                <ScalarProperty Name="usuarioCrea" ColumnName="usuarioCrea" />
-                <ScalarProperty Name="fechaCrea" ColumnName="fechaCrea" />
-                <ScalarProperty Name="usuarioModifica" ColumnName="usuarioModifica" />
-                <ScalarProperty Name="fechaModifica" ColumnName="fechaModifica" />
-                <ScalarProperty Name="vc_Estado" ColumnName="vc_Estado" />
-                <ScalarProperty Name="id_DistritoInec" ColumnName="id_DistritoInec" />
+              <ComplexTypeMapping TypeName="SegurosSigloXXlModel.pa_CoberturaPoliza_Select_Id_Result">
+                <ScalarProperty Name="IdCoberturaPoliza" ColumnName="IdCoberturaPoliza" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Porcentaje" ColumnName="Porcentaje" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pa_Clientes_Select_Id" FunctionName="SegurosSigloXXlModel.Store.pa_Clientes_Select_Id">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SegurosSigloXXlModel.pa_Clientes_Select_Id_Result">
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="Cedula" ColumnName="Cedula" />
+                <ScalarProperty Name="Genero" ColumnName="Genero" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="PrimerApellido" ColumnName="PrimerApellido" />
+                <ScalarProperty Name="SegundoApellido" ColumnName="SegundoApellido" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="DireccionFisica" ColumnName="DireccionFisica" />
+                <ScalarProperty Name="IdProvincia" ColumnName="IdProvincia" />
+                <ScalarProperty Name="IdCanton" ColumnName="IdCanton" />
+                <ScalarProperty Name="IdDistrito" ColumnName="IdDistrito" />
+                <ScalarProperty Name="TipoUsuario" ColumnName="TipoUsuario" />
+                <ScalarProperty Name="Contrasenia" ColumnName="Contrasenia" />
+                <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pa_Clientes_Update" FunctionName="SegurosSigloXXlModel.Store.pa_Clientes_Update" />
+          <EntitySetMapping Name="CoberturaPoliza">
+            <EntityTypeMapping TypeName="SegurosSigloXXlModel.CoberturaPoliza">
+              <MappingFragment StoreEntitySet="CoberturaPoliza">
+                <ScalarProperty Name="Porcentaje" ColumnName="Porcentaje" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdCoberturaPoliza" ColumnName="IdCoberturaPoliza" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RegistroPoliza">
+            <EntityTypeMapping TypeName="SegurosSigloXXlModel.RegistroPoliza">
+              <MappingFragment StoreEntitySet="RegistroPoliza">
+                <ScalarProperty Name="PrimaFinal" ColumnName="PrimaFinal" />
+                <ScalarProperty Name="Impuesto" ColumnName="Impuesto" />
+                <ScalarProperty Name="PrimaAntesImpuesto" ColumnName="PrimaAntesImpuesto" />
+                <ScalarProperty Name="MontoAdicciones" ColumnName="MontoAdicciones" />
+                <ScalarProperty Name="PorcentajeCobertura" ColumnName="PorcentajeCobertura" />
+                <ScalarProperty Name="MontoAsegurado" ColumnName="MontoAsegurado" />
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="IdCoberturaPoliza" ColumnName="IdCoberturaPoliza" />
+                <ScalarProperty Name="IdRegistroPoliza" ColumnName="IdRegistroPoliza" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pa_RegistroPoliza_Delete" FunctionName="SegurosSigloXXlModel.Store.pa_RegistroPoliza_Delete" />
+          <FunctionImportMapping FunctionImportName="pa_RegistroPoliza_Insert" FunctionName="SegurosSigloXXlModel.Store.pa_RegistroPoliza_Insert" />
+          <FunctionImportMapping FunctionImportName="pa_RegistroPoliza_Select" FunctionName="SegurosSigloXXlModel.Store.pa_RegistroPoliza_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SegurosSigloXXlModel.pa_RegistroPoliza_Select_Result">
+                <ScalarProperty Name="IdRegistroPoliza" ColumnName="IdRegistroPoliza" />
+                <ScalarProperty Name="IdCoberturaPoliza" ColumnName="IdCoberturaPoliza" />
+                <ScalarProperty Name="NombreCobertura" ColumnName="NombreCobertura" />
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="NombreCliente" ColumnName="NombreCliente" />
+                <ScalarProperty Name="MontoAsegurado" ColumnName="MontoAsegurado" />
+                <ScalarProperty Name="PorcentajeCobertura" ColumnName="PorcentajeCobertura" />
+                <ScalarProperty Name="MontoAdicciones" ColumnName="MontoAdicciones" />
+                <ScalarProperty Name="PrimaAntesImpuesto" ColumnName="PrimaAntesImpuesto" />
+                <ScalarProperty Name="Impuesto" ColumnName="Impuesto" />
+                <ScalarProperty Name="PrimaFinal" ColumnName="PrimaFinal" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pa_RegistroPoliza_Select_Id" FunctionName="SegurosSigloXXlModel.Store.pa_RegistroPoliza_Select_Id">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SegurosSigloXXlModel.pa_RegistroPoliza_Select_Id_Result">
+                <ScalarProperty Name="IdRegistroPoliza" ColumnName="IdRegistroPoliza" />
+                <ScalarProperty Name="IdCoberturaPoliza" ColumnName="IdCoberturaPoliza" />
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="MontoAsegurado" ColumnName="MontoAsegurado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pa_RegistroPoliza_Update" FunctionName="SegurosSigloXXlModel.Store.pa_RegistroPoliza_Update" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

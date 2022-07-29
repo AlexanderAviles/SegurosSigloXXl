@@ -8,22 +8,28 @@
 @section Estilos{
     <link href="~/Content/Clientes/Pasos.css" rel="stylesheet" />
     <link href="~/Content/Clientes/Clientes.css" rel="stylesheet" />
+    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
 }
 
+<input type="text" value="@ViewBag.TipoUsuario" id="TipoUsuario" hidden />
 
-<div class="Body">
-    <h2 class="">Clientes</h2>
-    <div class="form-group">
-        <label>Buscar cliente</label>
-        <input type="text" name="Nombre" id="Buscador" />
-        <a class="btn btn-danger" id="BtnCancelarFiltro" title="Cancelar busqueda"><i class="bi bi-x-circle"></i></a>
-        @*<a href="~/Adicciones/NuevaAdiccion" class="btn btn-success" title="Nueva adiccion"><i class="bi bi-plus-circle"></i> Nueva Adiccion</a>*@
-        <a id="BtnExpandir" class="btn btn-success" title="Nuevo cliente"><i class="bi bi-plus-circle"></i> Nuevo cliente</a>
-    </div>
+
+<h2 class="">Clientes</h2>
+<div class="form-group">
+    <label>Buscar cliente</label>
+    <input type="text" name="Nombre" id="Buscador" />
+    <a class="btn btn-danger" id="BtnCancelarFiltro" title="Cancelar busqueda"><i class="bi bi-x-circle"></i></a>
+    @*<a href="~/Adicciones/NuevaAdiccion" class="btn btn-success" title="Nueva adiccion"><i class="bi bi-plus-circle"></i> Nueva Adiccion</a>*@
+    @{
+        if (ViewBag.TipoUsuario == "Colaborador")
+        {
+            <a id="BtnExpandir" class="btn btn-success" title="Nuevo cliente"><i class="bi bi-plus-circle"></i> Nuevo cliente</a>
+        }
+    }
 </div>
 
 <!-- FORMULARIOS -->
-<div id="Formulario">
+<div id="Formulario" hidden>
     <div class="Body">
 
         <div class="form">
@@ -70,7 +76,7 @@
                         <label>Provincia</label>
                         <select name="Provincia" id="Provincia" class="form-control">
                             @*<option value="">Seleccione una provincia</option>*@
-                        </select>  
+                        </select>
                     </div>
                     <div class="form-group">
                         <label>Cantón</label>
@@ -107,17 +113,16 @@
                     </div>
                     <div class="form-group">
                         <label>Fecha de nacimiento</label>
-                        <input type="date" name="FechaNacimiento" id="FechaNacimiento" class="form-control" />
+                        <input type="text" name="FechaNacimiento" id="FechaNacimiento" class="form-control" readonly/>
                     </div>
-                    <div class="form-group">
-                        <label>Genero</label>
-                        <select name="Genero" id="Genero" class="form-control">
-                            <option value="">Seleccione un genero</option>
-                            <option value="F">Femenino</option>
-                            <option value="M">Masculino</option>
-                        </select>
-                        
+                    <div id="grupoRadioButtonsSexo">
+                        <input type="radio" id="rbSexo1" name="rbSexo" value="M" />
+                        <label for="rbSexo1" id="rbSexo-1">Masculino</label>
+                        <input type="radio" id="rbSexo2" name="rbSexo" value="F" />
+                        <label for="rbSexo2" id="rbSexo-2">Femenino</label>
                     </div>
+                    <br />
+                    <br />
                     <div class="bnts-group">
                         <a class="btnp btn-prev"><i class="bi bi-arrow-left"></i></a>
                         <a class="btnp btn-next" id="btn-Paso3"><i class="bi bi-arrow-right"></i></a>
@@ -127,20 +132,30 @@
             <form method="post" id="Form-Paso4">
                 <!-- Paso 4 -->
                 <div class="form-paso">
-                    <div class="form-group">
-                        <label>Tipo de usuario</label>
-                        <input type="text" name="TipoUsuario" id="TipoUsuario" class="form-control" />
+                    <div id="grupoRadioButtonsTipoUsuario">
+                        <input type="radio" id="rbTipo1" name="rbTipo" value="Colaborador" />
+                        <label for="rbTipo1" id="rbTipo-1">Colaborador</label>
+                        <input type="radio" id="rbTipo2" name="rbTipo" value="Cliente" />
+                        <label for="rbTipo2" id="rbTipo-2">Cliente</label>
                     </div>
+                    <br />
+                    <br />
                     <div class="bnts-group">
                         <a class="btnp btn-prev"><i class="bi bi-arrow-left"></i></a>
                         <input type="button" class="btnp btn-next" id="Guardar" value="Guardar" />
+                        <input type="button" class="btn btn-warning" id="btnModificar" value="Modificar" />
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
-
+<div id="divDialog" hidden>
+    <p>Espere mientras se envia el correo electronico</p>
+    <div class="CuerpoSpinner">
+        <div class="loader"></div>
+    </div>
+</div>
 <div id="Tabla">
     <table class="table" id="Plantilla">
         <tr>
@@ -151,7 +166,14 @@
             <th>Direccion fisica</th>
             <th>Fecha de nacimiento</th>
             <th>Correo</th>
-            <th colspan="2">Acciones</th>
+            @{
+                if (ViewBag.TipoUsuario == "Colaborador")
+                {
+                    <th colspan="2">Acciones</th>
+                }
+            }
+
+
         </tr>
         <tbody id="CuerpoTabla">
         </tbody>
@@ -160,5 +182,7 @@
 <!-- Espacio donde se agregan los scripts personalizados -->
 @section Scripts{
     @*<script src="~/Scripts/Clientes/PruebaValidacion.js"></script>*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
     <script src="~/Scripts/Clientes/Clientes.js" type="module"></script>
 }

@@ -1,0 +1,40 @@
+﻿body {
+}
+* {
+    /*font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;*/
+}
+
+.tabla-encabezado {
+    margin-bottom: 0;
+    text-align: center;
+}
+
+label.error {
+    color: red;
+}
+
+input.error, textarea.error {
+    border: 1px solid red;
+}
+
+input.valid, textarea.valid {
+    border: 2px solid green;
+}
+
+select.valid {
+    border: 2px solid green;
+}
+
+select.error {
+    border: 1px solid red;
+}
+
+th {
+    /*    display: flex;
+    justify-content: center;
+    align-content: center;*/
+    text-align: center;
+}
+td:nth-child(4), td:nth-child(5), td:nth-child(6), td:nth-child(7), td:nth-child(8), td:nth-child(9) {
+    text-align: center;
+}

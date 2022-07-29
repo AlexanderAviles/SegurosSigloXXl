@@ -5,18 +5,28 @@ using System.Web;
 using System.Web.Mvc;
 using SegurosSigloXXl.Models;
 using SegurosSigloXXl.BLSeguroSigloXXl;
-
+using SegurosSigloXXl.Filtros;
 namespace SegurosSigloXXl.Controllers
 {
+    [Authorize]
     public class AdiccionesController : Controller
     {
         readonly SegurosSigloXXlEntities DBSeguros = new SegurosSigloXXlEntities();
         readonly BLAdicciones Adiccion = new BLAdicciones();
-
+        private Usuarios oUsurio;
         // GET: Adicciones
+        [VerificaSession("Colaborador")]
         public ActionResult Adicciones()
         {
+            oUsurio = (Usuarios)Session["Usuario"];
+
+            if(oUsurio != null)
+            {
+                ViewBag.TipoUsuario = oUsurio.TipoUsuario;
+                return View();
+            }
             return View();
+
         }
 
         public ActionResult AdiccionesSelect(string Nombre)
@@ -65,6 +75,12 @@ namespace SegurosSigloXXl.Controllers
                 resultMensaje = mensaje,
                 resultError = err
             });
+        }
+
+        public ActionResult SinPermiso()
+        {
+            ViewBag.Message = "Usted no tiene permisos para ver esta pagina";
+            return View();
         }
     }
 }

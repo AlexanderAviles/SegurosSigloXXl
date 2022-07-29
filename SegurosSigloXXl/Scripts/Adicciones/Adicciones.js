@@ -340,13 +340,6 @@ function CargarDatos(IdAdiccion) {
     });
 }
 
-// Carga los datos actuales en el formulario para poder ser modificados.
-function ProcesarDatosModificables(data) {
-    $("#Adiccion").val(data.Nombre);
-    $("#Descripcion").val(data.Descripcion);
-    $("#Codigo").val(data.Codigo);
-}
-
 // Funcion que se encargar de mandar el Id de la adiccion al metodo del controlador
 // para que este pueda  editar la adiccion.
 function ModificarPost(IdAdiccion) {
@@ -369,7 +362,7 @@ function ModificarPost(IdAdiccion) {
         contentType: 'application/json',
         data: JSON.stringify(Datos),
         success: function (data, textStatus, jQxhr) {
-            // Mensaje el cual muestra si se realizo con exito la insercion de datos
+            // Mensaje el cual muestra si se realizo con exito la modificacion de datos
             // a la base de datos.
             MensajeModificar(data);
 
@@ -383,6 +376,13 @@ function ModificarPost(IdAdiccion) {
             alert(errorThrown);
         }
     });
+}
+
+// Carga los datos actuales en el formulario para poder ser modificados.
+function ProcesarDatosModificables(data) {
+    $("#Adiccion").val(data.Nombre);
+    $("#Descripcion").val(data.Descripcion);
+    $("#Codigo").val(data.Codigo);
 }
 
 // Funcion que modifica los datos de la adiccion seleccionada.
@@ -401,7 +401,9 @@ function ModificarAdiccion(Id) {
 
     // Cuando se le de click al boton modificar, modificara los datos de la adiccion.
     BtnModificar.click(function () {
-        ModificarPost(Id);
+        if (FormAdiccion.valid()) {
+            ModificarPost(Id);
+        } 
     });
 }
 

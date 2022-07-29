@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = "Coberturas";
+    Layout = "~/Views/Shared/_LayaoutGeneral.cshtml";
+}
+@section Estilos{
+    <link href="~/Content/Coberturas/Coberturas.css" rel="stylesheet" />
+}
+<h2 class="">Cobertura</h2>
+<div class="form-group">
+    <label>Buscar Cobertura</label>
+    <input type="text" name="Nombre" id="Buscador" />
+    <a class="btn btn-danger" id="BtnCancelarFiltro" title="Cancelar busqueda"><i class="bi bi-x-circle"></i></a>
+    <a id="BtnExpandir" class="btn btn-success" onclick="" title="Nueva adiccion"><i class="bi bi-plus-circle"></i> Nueva adiccion</a>
+</div>
+
+<div id="Formulario">
+    <h2>Nueva Cobertura</h2>
+    <form id="FrmCoberturas" method="post">
+        <div class="form-group">
+            <label>Nombre de Cobertura</label>
+            <input type="text" name="nombre" id="nombre" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Descripcion</label>
+            <textarea name="Descripcion" id="Descripcion" class="form-control" rows="5"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Porcentaje</label>
+            <input type="number" name="porcentaje" id="porcentaje" class="form-control" />
+        </div>
+        <div class="form-group">
+            <input type="button" value="Guardar" id="BtnInsertar" class="btn btn-success" />
+            <input type="button" value="Modificar" id="BtnModificar" class="btn btn-warning" />
+            <input type="button" value="Cancelar" id="BtnCancelar" class="btn btn-default" />
+        </div>
+    </form>
+</div>
+
+<div id="Tabla">
+    <table class="table" id="Plantilla">
+        <tbody>
+            <tr>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Porcentaje</th>
+                <th colspan="2">Acciones</th>
+            </tr>
+        </tbody>
+        <tbody id="CuerpoTabla">
+        </tbody>
+    </table>
+</div>
+
+@section Scripts{
+
+    <script src="~/Scripts/Coberturas/Coberturas.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+}

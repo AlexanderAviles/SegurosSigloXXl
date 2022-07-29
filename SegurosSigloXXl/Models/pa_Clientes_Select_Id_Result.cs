@@ -16,7 +16,7 @@ namespace SegurosSigloXXl.Models
         public int IdCliente { get; set; }
         public int Cedula { get; set; }
         public string Genero { get; set; }
-        public DateTime FechaNacimiento { get; set; }
+        public System.DateTime FechaNacimiento { get; set; }
         public string Nombre { get; set; }
         public string PrimerApellido { get; set; }
         public string SegundoApellido { get; set; }
@@ -26,7 +26,8 @@ namespace SegurosSigloXXl.Models
         public int IdProvincia { get; set; }
         public int IdCanton { get; set; }
         public int IdDistrito { get; set; }
-        public string Contrasenia { get; set; }
         public string TipoUsuario { get; set; }
+        public string Contrasenia { get; set; }
+        public string NombreUsuario { get; set; }
     }
 }

@@ -128,10 +128,18 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BLSeguroSigloXXl\BLAdicciones.cs" />
     <Compile Include="BLSeguroSigloXXl\BLCLientes.cs" />
+    <Compile Include="BLSeguroSigloXXl\BLCoberturas.cs" />
+    <Compile Include="BLSeguroSigloXXl\BLRegistroPoliza.cs" />
     <Compile Include="Clases\Correo.cs" />
     <Compile Include="Controllers\AdiccionesController.cs" />
+    <Compile Include="Controllers\AdiccionesPorClientesController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
+    <Compile Include="Controllers\CoberturasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\PrincipalController.cs" />
+    <Compile Include="Controllers\RegistroPolizaController.cs" />
+    <Compile Include="Filtros\VerificaSession.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -201,6 +209,9 @@
     <Compile Include="Models\pa_Clientes_Select_Result.cs">
       <DependentUpon>BDSegurosSigloXXl.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\pa_CoberturaPoliza_Select_Id_Result.cs">
+      <DependentUpon>BDSegurosSigloXXl.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\pa_CoberturaPoliza_Select_Result.cs">
       <DependentUpon>BDSegurosSigloXXl.tt</DependentUpon>
     </Compile>
@@ -211,6 +222,9 @@
       <DependentUpon>BDSegurosSigloXXl.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\pa_Provincias_Select_Result.cs">
+      <DependentUpon>BDSegurosSigloXXl.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\pa_RegistroPoliza_Select_Id_Result.cs">
       <DependentUpon>BDSegurosSigloXXl.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\pa_RegistroPoliza_Select_Result.cs">
@@ -247,7 +261,12 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Clientes\Clientes.css" />
+    <Content Include="Content\Coberturas\Coberturas.css" />
+    <Content Include="Content\General.css" />
+    <Content Include="Content\RegistroPoliza\Pasos.css" />
+    <Content Include="Content\RegistroPoliza\RegistroPoliza.css" />
     <Content Include="Scripts\Clientes\Acciones.js" />
+    <Content Include="Scripts\Clientes\ElementosjQueryUI.js" />
     <Content Include="Scripts\Clientes\Geografia.js" />
     <Content Include="Content\Clientes\Pasos.css" />
     <Content Include="Content\Icons.css" />
@@ -279,6 +298,7 @@
     <Content Include="Scripts\Clientes\Clientes.js" />
     <Content Include="Scripts\Clientes\Pasos.js" />
     <Content Include="Scripts\Clientes\PruebaValidacion.js" />
+    <Content Include="Scripts\Coberturas\Coberturas.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -289,6 +309,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\RegistroPoliza\Pasos.js" />
+    <Content Include="Scripts\RegistroPoliza\RegistroPoliza.js" />
     <Content Include="Scripts\ValidacionesGenericas.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -307,6 +329,12 @@
     <Content Include="Views\Shared\_LayaoutGeneral.cshtml" />
     <Content Include="Views\Adicciones\Adicciones.cshtml" />
     <Content Include="Views\Clientes\Clientes.cshtml" />
+    <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\Adicciones\SinPermiso.cshtml" />
+    <Content Include="Views\Principal\Principal.cshtml" />
+    <Content Include="Views\Coberturas\Coberturas.cshtml" />
+    <Content Include="Views\RegistroPoliza\RegistroPoliza.cshtml" />
+    <Content Include="Views\AdiccionesPorClientes\AdiccionesPorClientes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,89 @@
+﻿
+@{
+    ViewBag.Title = "RegistroPoliza";
+    Layout = "~/Views/Shared/_LayaoutGeneral.cshtml";
+}
+
+
+@section Estilos{
+
+    <link href="~/Content/RegistroPoliza/Pasos.css" rel="stylesheet" />
+    <link href="~/Content/RegistroPoliza/RegistroPoliza.css" rel="stylesheet" />
+}
+
+<h2 class="">Cobertura de polizas</h2>
+<div class="form-group">
+        <label>Buscar Registro</label>
+        <input type="text" name="Nombre" id="Buscador" />
+        <a class="btn btn-danger" id="BtnCancelarFiltro" title="Cancelar busqueda"><i class="bi bi-x-circle"></i></a>
+        @*<a href="~/Adicciones/NuevaAdiccion" class="btn btn-success" title="Nueva adiccion"><i class="bi bi-plus-circle"></i> Nueva Adiccion</a>*@
+        <a id="BtnExpandir" class="btn btn-success" title="Nuevo registro"><i class="bi bi-plus-circle"></i> Nuevo registro</a>
+</div>
+
+
+<!-- FORMULARIOS -->
+<div id="Formulario">
+    <div class="Body">
+
+        <div class="form">
+            <h1 class="">Registro de poliza cobertura</h1>
+            <!-- Paso 1 -->
+            <form method="post" id="Form-Paso1">
+                <div class="form-paso form-paso-activo Paso1">
+
+                    <div class="form-group">
+                        <label>Cliente</label>
+                        <select name="Cliente" id="Cliente" class="form-control">
+                            <option value="">Seleccione un cliente</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Cobertura</label>
+                        <select name="Cobertura" id="Cobertura" class="form-control">
+                            @*<option value="">Seleccione una provincia</option>*@
+                        </select>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Monto asegurado</label>
+                        <input type="number" name="MontoAsegurado" id="MontoAsegurado" class="form-control" />
+                    </div>
+
+                    <div class="bnts-group">
+                        <input type="button" class="btnp btn-next" id="Guardar" value="Guardar" />
+                    </div>
+                    <div class="bnts-group">
+                        <input type="button" class="btn btn-default" id="BtnCancelar" value="Cancelar" />
+                        <input type="button" class="btn btn-warning" id="BtnModificar" value="Actualizar" />
+                    </div> <div class="bnts-group">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<div id="Tabla">
+    <table class="table" id="Plantilla">
+        <tr>
+            <th>Id registro</th>
+            <th>Nombre de Poliza de cobertura</th>
+            <th>Cliente</th>
+            <th>Monto asegurado</th>
+            <th>Porcentaje de cobertura</th>
+            <th>Monto adicciones</th>
+            <th>Prima antes de impuestos</th>
+            <th>Impuestos</th>
+            <th>Prima final</th>
+            <th colspan="2">Acciones</th>
+        </tr>
+        <tbody id="CuerpoTabla">
+        </tbody>
+    </table>
+</div>
+@section Scripts{
+    <script src="~/Scripts/RegistroPoliza/RegistroPoliza.js" type="module"></script>
+}
