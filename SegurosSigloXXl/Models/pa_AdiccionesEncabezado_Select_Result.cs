@@ -14,6 +14,7 @@ namespace SegurosSigloXXl.Models
     public partial class pa_AdiccionesEncabezado_Select_Result
     {
         public int IdAdiccionCliente { get; set; }
+        public int IdCliente { get; set; }
         public string Nombre { get; set; }
         public int TotalAdicciones { get; set; }
     }

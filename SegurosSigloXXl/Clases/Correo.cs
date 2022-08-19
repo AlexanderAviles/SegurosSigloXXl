@@ -13,6 +13,7 @@ namespace SegurosSigloXXl.Clases
 
         }
 
+        #region ENVIAR CORREO A CLIENTE NUEVO
         public void EnviarCorreoClienteNuevo(string pCorreoElectronico, string pCliente, string pContrasenia)
         {
             // Cuerpo del correo electronico
@@ -33,13 +34,13 @@ namespace SegurosSigloXXl.Clases
             // Servidor del correo electronico que se utiliza para enviar el correo.
             SmtpClient smtp = new SmtpClient("smtp.office365.com", 587);
             // Credenciales del correo electronico del Centro medico, utilizado para enviar correos
-            smtp.Credentials = new NetworkCredential("segurossigloxxl@hotmail.com", "L3$$Swert.2022");
+            smtp.Credentials = new NetworkCredential("segurossigloxxlpv@hotmail.com", "L3$$Swert.2022");
             smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
             smtp.EnableSsl = true;
 
             MailMessage mail = new MailMessage();
             // Correo electronico que se enviara al cliente con el motivo
-            mail.From = new MailAddress("segurossigloxxl@hotmail.com", "Su cuenta en Seguros El Equipo del Siglo XXI.");
+            mail.From = new MailAddress("segurossigloxxlpv@hotmail.com", "Su cuenta en Seguros El Equipo del Siglo XXI.");
 
             // Cuerpo del correo anteriormente creado
             mail.To.Add(new MailAddress(pCorreoElectronico));
@@ -50,5 +51,7 @@ namespace SegurosSigloXXl.Clases
             smtp.Send(mail);
 
         }
+        #endregion FIN ENVIAR CORREO A CLIENTE NUEVO
+
     }
 }

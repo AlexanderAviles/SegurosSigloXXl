@@ -42,7 +42,7 @@ namespace SegurosSigloXXl.Filtros
                     }
                     else
                     {
-                        filterContext.Result = new RedirectResult("~/Adicciones/Sinpermiso");
+                        filterContext.Result = new RedirectResult("~/Otros/Sinpermiso");
                     }
                 }
             }catch(Exception)

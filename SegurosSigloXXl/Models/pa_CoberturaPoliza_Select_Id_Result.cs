@@ -16,6 +16,6 @@ namespace SegurosSigloXXl.Models
         public int IdCoberturaPoliza { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
-        public Nullable<float> Porcentaje { get; set; }
+        public float Porcentaje { get; set; }
     }
 }

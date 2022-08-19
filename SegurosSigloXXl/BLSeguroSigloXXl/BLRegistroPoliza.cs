@@ -13,14 +13,15 @@ namespace SegurosSigloXXl.BLSeguroSigloXXl
         {
 
         }
-        public (string, bool) InsertarRegistroPoliza(int IdCobertura, int IdCliente, float MontoAsegurado)
+        #region INSERTAR REGISTRO POLIZA
+        public (string, bool) InsertarRegistroPoliza(int IdCobertura, int IdCliente, float MontoAsegurado, DateTime FechaVencimiento)
         {
             int regAfect = 0;
             string resultado = "";
             bool TF;
             try
             {
-                regAfect = this.BDSeguros.pa_RegistroPoliza_Insert(IdCobertura, IdCliente, MontoAsegurado);
+                regAfect = this.BDSeguros.pa_RegistroPoliza_Insert(IdCobertura, IdCliente, MontoAsegurado, FechaVencimiento);
             }
             catch (Exception err)
             {
@@ -41,6 +42,9 @@ namespace SegurosSigloXXl.BLSeguroSigloXXl
             }
             return (resultado, TF);
         }
+        #endregion FIN INSERTAR REGISTRO POLIZA
+
+        #region ELIMINAR REGISTRO POLIZA
         public (string, bool) EliminarRegistroPoliza(int IdRegistroPoliza)
         {
             int regAfect = 0;
@@ -70,14 +74,17 @@ namespace SegurosSigloXXl.BLSeguroSigloXXl
             }
             return (resultado, TF);
         }
-        public (string, bool) ModificarRegistroPoliza(int IdRegistroPoliza, int IdCobertura, int IdCliente, float MontoAsegurado)
+        #endregion FIN ELIMINAR REGISTRO POLIZA
+
+        #region MODIFICIAR REGISTRO POLIZA
+        public (string, bool) ModificarRegistroPoliza(int IdRegistroPoliza, int IdCobertura, int IdCliente, float MontoAsegurado, DateTime FechaVencimiento)
         {
             int regAfect = 0;
             string resultado = "";
             bool TF;
             try
             {
-                regAfect = this.BDSeguros.pa_RegistroPoliza_Update(IdRegistroPoliza, IdCobertura, IdCliente, MontoAsegurado);
+                regAfect = this.BDSeguros.pa_RegistroPoliza_Update(IdRegistroPoliza, IdCobertura, IdCliente, MontoAsegurado, FechaVencimiento);
             }
             catch (Exception err)
             {
@@ -99,5 +106,7 @@ namespace SegurosSigloXXl.BLSeguroSigloXXl
             }
             return (resultado, TF);
         }
+        #endregion FIN MODIFICAR REGISTRO POLIZA
+
     }
 }

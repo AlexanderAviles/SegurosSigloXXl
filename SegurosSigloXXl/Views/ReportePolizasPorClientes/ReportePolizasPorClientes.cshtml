@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "ReportePolizasPorCliente";
+    Layout = "~/Views/Shared/_LayaoutGeneral.cshtml";
+}
+@section Estilos{
+    <link href="https://kendo.cdn.telerik.com/2020.2.617/styles/kendo.common.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2022.2.621/styles/kendo.default-ocean-blue.min.css">
+    <link href="~/Content/ReportePolizasPorClients/ReportePolizasPorClientes.css" rel="stylesheet" />
+}
+<input type="text" value="@ViewBag.IdCliente" id="IdCliente" readonly hidden />
+<input type="text" value="@ViewBag.TipoUsuario" id="TipoUsuario" readonly hidden />
+<input type="text" value="@ViewBag.NombreCliente" id="NombreCliente" readonly hidden />
+
+<h2>Reporte polizas por cliente</h2>
+@if (ViewBag.TipoUsuario == "Cliente")
+{
+    <div class="configurator">
+        <div class="box-col">
+            <div class="box-col">
+                <button class='export-pdf btn btn-success'>Generar reporte</button>
+            </div>
+        </div>
+    </div>
+}
+<style>
+    .layout-general {
+        width: 1366px;
+        height: auto;
+        display: grid;
+        grid-template-rows: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+</style>
+<div class="demo-section export-app wide hidden-on-narrow">
+
+
+    <div class="demo-section content-wrapper wide">
+        @if (ViewBag.TipoUsuario == "Cliente")
+        {
+            <h3 class="text-center"><b>Reporte de polizas</b></h3>
+            <h4 class="text-center"><b>@ViewBag.NombreCliente</b></h4>
+            <section class="layout-general">
+                <div>
+                    <h4><b>Cédula:</b> @ViewBag.DatosCliente.Cedula</h4>
+                    <h4><b>Télefono:</b> @ViewBag.DatosCliente.Telefono</h4>
+                    <h4><b>Dirección:</b> @ViewBag.DatosCliente.Provincia, @ViewBag.DatosCliente.Canton, @ViewBag.DatosCliente.Distrito </h4>
+                    <h4><b>Fecha de nacimiento:</b> @ViewBag.DatosCliente.FechaNacimiento.ToString("dd/MM/yyyy")</h4>
+                    <h4><b>Género:</b> @(@ViewBag.DatosCliente.Genero == "M" ? "Masculino" : "Femenino") </h4>
+
+                </div>
+                <div>
+                    <img src="~/Images/Seguro-Logo-.png" width="500" height="250" />
+                </div>
+            </section>
+        }
+
+
+        <div class="demo-section charts-wrapper wide">
+            <div id="divKendoGrid">
+            </div>
+        </div>
+        <div id="grid"></div>
+    </div>
+
+</div>
+
+@section Scripts{
+    <script src="https://kendo.cdn.telerik.com/2022.2.621/js/kendo.all.min.js"></script>
+    <script src="~/Scripts/ScripGenerico.js"></script>
+    <script src="~/Scripts/ReportePolizasPorClientes/ReportePolizasPorClientes.js"></script>
+}

@@ -60,7 +60,7 @@ function AccionesBotones() {
             InsertarPost();
 
             // Click automatico para limpiar el formulario
-            BtnCancelar.trigger('click');
+            //BtnCancelar.trigger('click');
 
             // Todos los elementos del formulario regresan a su estado por default.
             ElementosDefault();

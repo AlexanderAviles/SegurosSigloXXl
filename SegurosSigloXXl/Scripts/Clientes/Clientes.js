@@ -372,17 +372,14 @@ function ProcesarDatosModificables(data) {
 
     $("#Cedula").val(data.Cedula);
 
-    if (data.Genero == "F") {
+    if (data.Genero == "M") {
         $('#rbSexo1').attr('checked', 'checked');
         $('#rbSexo-1').addClass("ui-checkboxradio-checked");
         $('#rbSexo-1').addClass("ui-state-active");
-    }
-     
-    if (data.Genero == "M") {
+    } else if (data.Genero == "F") {
         $('#rbSexo2').attr('checked', 'checked');
         $('#rbSexo-2').addClass("ui-checkboxradio-checked");
         $('#rbSexo-2').addClass("ui-state-active");
-
     }
 
     /*$("#Genero").val(data.Genero);*/
@@ -400,15 +397,13 @@ function ProcesarDatosModificables(data) {
     var mes = new Date().getMonth(data.FechaNacimiento);
     var dia = new Date().getDate(data.FechaNacimiento);
 
-    $("#FechaNacimiento").val(dia+"/"+mes+"/"+anio );
-
-    if (data.TipoUsuario == "Administrador") {
+    //$("#FechaNacimiento").val(dia+"/"+mes+"/"+anio );
+    $("#FechaNacimiento").val(moment(data.FechaNacimiento).format('DD/MM/YYYY'));
+    if (data.TipoUsuario == "Colaborador") {
         $('#rbTipo1').attr('checked', 'checked');
         $('#rbTipo-1').addClass("ui-checkboxradio-checked");
         $('#rbTipo-1').addClass("ui-state-active");
-    }
-
-    if (data.TipoUsuario == "Colaborador") {
+    } else if (data.TipoUsuario == "Cliente") {
         $('#rbTipo2').attr('checked', 'checked');
         $('#rbTipo-2').addClass("ui-checkboxradio-checked");
         $('#rbTipo-2').addClass("ui-state-active");
@@ -435,9 +430,8 @@ window.ModificarCliente = function (Id) {
     // Cuando se le de click al boton modificar, modificara los datos de la adiccion.
     BtnModificar.click(function () {
         if (FormPaso1.valid() && FormPaso2.valid() && FormPaso3.valid() && FormPaso4.valid()) {
-            $("#divDialog").dialog("open");
+            //$("#divDialog").dialog("open");
             ModificarPost(Id);
-            InsertarPost();
             AnimacionTabla();
         }
 

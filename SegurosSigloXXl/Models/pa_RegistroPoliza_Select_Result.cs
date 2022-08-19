@@ -24,5 +24,6 @@ namespace SegurosSigloXXl.Models
         public float PrimaAntesImpuesto { get; set; }
         public float Impuesto { get; set; }
         public float PrimaFinal { get; set; }
+        public System.DateTime FechaVencimiento { get; set; }
     }
 }

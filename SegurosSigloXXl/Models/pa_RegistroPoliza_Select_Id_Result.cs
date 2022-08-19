@@ -17,5 +17,6 @@ namespace SegurosSigloXXl.Models
         public int IdCoberturaPoliza { get; set; }
         public int IdCliente { get; set; }
         public float MontoAsegurado { get; set; }
+        public System.DateTime FechaVencimiento { get; set; }
     }
 }

@@ -1,0 +1,99 @@
+﻿@model SegurosSigloXXl.Models.pa_Clientes_Select_Id_Result
+@{
+    ViewBag.Title = "ClienteHistorial";
+    Layout = "~/Views/Shared/_LayaoutGeneral.cshtml";
+}
+<input type="text" value="@ViewBag.TipoUsuario" id="TipoUsuario" hidden />
+
+<h2>Historial del cliente</h2>
+@{
+    <div class="container">
+        <section class="layout">
+            <div>
+                <img src="~/images/Usuario.png" style="width: 225px; height:225px" />
+            </div>
+            <div class="tab-content">
+
+                <input id="IdCliente" value="@Model.IdCliente" hidden />
+                <input id="IdAdiccionCliente" value="" hidden />
+                <input id="IdAdiccionDetalle" value="" hidden />
+                <label id="Cedula">Cédula: @Model.Cedula</label>
+                <br />
+                <label id="NombreCompleto">Nombre: @Model.Nombre @Model.PrimerApellido @Model.SegundoApellido</label>
+                <br />
+                <label id="FechaNacimiento">Fecha nacimiento: @Model.FechaNacimiento.ToString("dd/MM/yyyy")</label>
+                <br />
+                @if (Model.Genero == "M")
+                {
+                    <label id="Genero">Género: Masculino</label>
+                }
+                else
+                {
+                    <label id="Genero">Género: Femenimo</label>
+                }
+
+                <br />
+                <label>Correo: @Model.Correo</label>
+                <br />
+                <label>Teléfono: @Model.Telefono</label>
+                <br />
+                <label id="Direccion"></label>
+            </div>
+        </section>
+        <div>
+            @{ if (ViewBag.TipoUsuario == "Colaborador")
+                {
+                    <a id="BtnExpandir" class="btn btn-success" onclick="" title="Agregar adicción"><i class="bi bi-plus-circle"></i> Agregar adicción</a>
+                }
+            }
+        </div>
+        <br />
+        <div id="Formulario">
+            <h2>Nueva adicción cliente</h2>
+            @*<label id="Mensaje" style="display:none;">@ViewBag.Mensaje</label>*@
+            <form id="FrmCoberturas" method="post">
+                <div class="form-group" style="display:flex; justify-content:center">
+                    <label style="margin-top: 6px; margin-right: 10px;">Adicciones</label> <br />
+                    <select id="Adicciones" name="Adicciones" class="form-control" style="margin-right: 10px;">
+                        <option value=''>Seleccione una adicción </option>
+                    </select>
+                </div>
+                <div class="text-center">
+                    <input type="button" value="Guardar" id="BtnInsertar" class="btn btn-success" />
+
+                </div>
+                <div class="form-group">
+                    <input type="button" value="Modificar" id="BtnModificar" class="btn btn-warning" />
+                    <input type="button" value="Cancelar" id="BtnCancelar" class="btn btn-default" />
+                    @*<a href="~/Adicciones/Adicciones" class="btn btn-default">Lista de adicciones</a>*@
+                </div>
+            </form>
+        </div>
+        <div id="Tabla">
+            <table class="table" id="Plantilla">
+                <tbody>
+                    <tr>
+                        <th>Adiccion</th>
+                        @{ if (ViewBag.TipoUsuario == "Colaborador")
+                            {
+
+                                <th colspan="2">Acciones</th>
+                            }
+                        }
+                    </tr>
+                </tbody>
+                <tbody id="CuerpoTabla">
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+}
+@section Estilos{
+    <link href="~/Content/ClienteHistorial/ClienteHistorial.css" rel="stylesheet" />
+}
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+    <script src="~/Scripts/ClienteRegistro/ClienteHistorial.js"></script>
+}

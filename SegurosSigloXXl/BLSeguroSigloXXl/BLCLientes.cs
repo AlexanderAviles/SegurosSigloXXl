@@ -13,7 +13,7 @@ namespace SegurosSigloXXl.BLSeguroSigloXXl
         {
 
         }
-
+        #region INSERTAR CLIENTE
         public (string, bool) InsertarCliente(int pCedula, string pGenero, DateTime pFecha, string pNombre,
                                               string pPrimerApellido, string pSegundoApellido, int pTelefono,
                                               string pCorreo, string pDireccionFisica, int pIdProvincia, int pIdCanton,
@@ -51,7 +51,9 @@ namespace SegurosSigloXXl.BLSeguroSigloXXl
             }
             return (resultado, e);
         }
+        #endregion FIN INSERTAR CLIENTE
 
+        #region ELIMINAR CLIENTE
         public (string, bool) EliminarCliente(int IdCliente)
         {
             /// Variable que registra la cantidad de registros afectados
@@ -84,11 +86,13 @@ namespace SegurosSigloXXl.BLSeguroSigloXXl
             }
             return (resultado, e);
         }
+        #endregion FIN ELIMINAR CLIENTE
 
+        #region MODIFICAR CLIENTE
         public (string, bool) ModificarCliente(int pIdCliente, int pCedula, string pGenero, DateTime pFecha, string pNombre,
-                                              string pPrimerApellido, string pSegundoApellido, int pTelefono,
-                                              string pCorreo, string pDireccionFisica, int pIdProvincia, int pIdCanton,
-                                              int pIdDistrito, string pContrasenia, string pTipoUsuario)
+                                      string pPrimerApellido, string pSegundoApellido, int pTelefono,
+                                      string pCorreo, string pDireccionFisica, int pIdProvincia, int pIdCanton,
+                                      int pIdDistrito, string pContrasenia, string pTipoUsuario)
         {
             /// Variable que registra la cantidad de registros afectados
             /// si un procedimiento que ejecuta insert, update o delete
@@ -122,5 +126,7 @@ namespace SegurosSigloXXl.BLSeguroSigloXXl
             }
             return (resultado, e);
         }
+        #endregion FIN MODIFICAR CLIENTE
+
     }
 }

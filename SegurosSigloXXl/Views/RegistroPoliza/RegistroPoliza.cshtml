@@ -9,15 +9,16 @@
 
     <link href="~/Content/RegistroPoliza/Pasos.css" rel="stylesheet" />
     <link href="~/Content/RegistroPoliza/RegistroPoliza.css" rel="stylesheet" />
+    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
 }
 
-<h2 class="">Cobertura de polizas</h2>
+<h2 class="">Cobertura de pólizas</h2>
 <div class="form-group">
-        <label>Buscar Registro</label>
-        <input type="text" name="Nombre" id="Buscador" />
-        <a class="btn btn-danger" id="BtnCancelarFiltro" title="Cancelar busqueda"><i class="bi bi-x-circle"></i></a>
-        @*<a href="~/Adicciones/NuevaAdiccion" class="btn btn-success" title="Nueva adiccion"><i class="bi bi-plus-circle"></i> Nueva Adiccion</a>*@
-        <a id="BtnExpandir" class="btn btn-success" title="Nuevo registro"><i class="bi bi-plus-circle"></i> Nuevo registro</a>
+    <label>Buscar Registro</label>
+    <input type="text" name="Nombre" id="Buscador" />
+    <a class="btn btn-danger" id="BtnCancelarFiltro" title="Cancelar busqueda"><i class="bi bi-x-circle"></i></a>
+    @*<a href="~/Adicciones/NuevaAdiccion" class="btn btn-success" title="Nueva adiccion"><i class="bi bi-plus-circle"></i> Nueva Adiccion</a>*@
+    <a id="BtnExpandir" class="btn btn-success" title="Nuevo registro"><i class="bi bi-plus-circle"></i> Nuevo registro</a>
 </div>
 
 
@@ -49,7 +50,10 @@
                         <label>Monto asegurado</label>
                         <input type="number" name="MontoAsegurado" id="MontoAsegurado" class="form-control" />
                     </div>
-
+                    <div class="form-group">
+                        <label>Fecha de vencimiento</label>
+                        <input type="text" name="FechaVencimiento" id="FechaVencimiento" class="form-control" readonly />
+                    </div>
                     <div class="bnts-group">
                         <input type="button" class="btnp btn-next" id="Guardar" value="Guardar" />
                     </div>
@@ -69,8 +73,7 @@
 <div id="Tabla">
     <table class="table" id="Plantilla">
         <tr>
-            <th>Id registro</th>
-            <th>Nombre de Poliza de cobertura</th>
+            <th>Nombre de póliza de cobertura</th>
             <th>Cliente</th>
             <th>Monto asegurado</th>
             <th>Porcentaje de cobertura</th>
@@ -78,6 +81,7 @@
             <th>Prima antes de impuestos</th>
             <th>Impuestos</th>
             <th>Prima final</th>
+            <th>Fecha vencimiento</th>
             <th colspan="2">Acciones</th>
         </tr>
         <tbody id="CuerpoTabla">
@@ -85,5 +89,7 @@
     </table>
 </div>
 @section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
     <script src="~/Scripts/RegistroPoliza/RegistroPoliza.js" type="module"></script>
 }

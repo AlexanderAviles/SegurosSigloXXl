@@ -38,6 +38,11 @@ function validacionesForm1() {
                 required: true
             },
             MontoAsegurado: {
+                required: true,
+                min: 3000000,
+                max: 100000000
+            },
+            FechaVencimiento: {
                 required: true
             }
         }

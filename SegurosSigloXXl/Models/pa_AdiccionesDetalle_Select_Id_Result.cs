@@ -16,5 +16,6 @@ namespace SegurosSigloXXl.Models
         public int IdAdiccionDetalle { get; set; }
         public int IdAdiccionCliente { get; set; }
         public int IdAdiccion { get; set; }
+        public string NombreAdiccion { get; set; }
     }
 }

@@ -22,7 +22,7 @@
         <AssociationConnector Association="SegurosSigloXXlModel.FK_Clientes_Distrito" ManuallyRouted="false" />
         <AssociationConnector Association="SegurosSigloXXlModel.FK_Clientes_Provincia" ManuallyRouted="false" />
         <EntityTypeShape EntityType="SegurosSigloXXlModel.CoberturaPoliza" Width="1.5" PointX="7.375" PointY="7.875" />
-        <EntityTypeShape EntityType="SegurosSigloXXlModel.RegistroPoliza" Width="1.5" PointX="9.75" PointY="3.875" />
+        <EntityTypeShape EntityType="SegurosSigloXXlModel.RegistroPoliza" Width="1.5" PointX="9.75" PointY="3.75" />
         <AssociationConnector Association="SegurosSigloXXlModel.FK_RegistroPoliza_Clientes" />
         <AssociationConnector Association="SegurosSigloXXlModel.FK_RegistroPoliza_CoberturaPoliza" />
         </Diagram>

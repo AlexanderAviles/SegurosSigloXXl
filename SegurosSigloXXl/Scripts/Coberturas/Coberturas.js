@@ -36,7 +36,7 @@ function AccionesBotones() {
         if (FormCoberturas.valid()) {
             InsertarPost();
 
-            BtnCancelar.trigger('click');
+            //BtnCancelar.trigger('click');
 
             ElementosDefault();
         }
@@ -354,7 +354,9 @@ function MensajeEliminar(data) {
             icon: 'success',
             title: 'Cobertura eliminada',
             Text: mensaje
+            
         })
+        
     } else {
         Swal.fire({
             icon: 'error',
@@ -372,7 +374,12 @@ function MensajeInsertar(data) {
             icon: 'success',
             title: 'Cobertura guardada',
             text: mensaje
-        })
+        }).then((result) => {
+            if (result.isConfirmed) {
+                location.reload();
+            }
+        });
+      
     } else {
         Swal.fire({
             icon: 'error',

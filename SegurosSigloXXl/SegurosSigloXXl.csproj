@@ -127,18 +127,23 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BLSeguroSigloXXl\BLAdicciones.cs" />
+    <Compile Include="BLSeguroSigloXXl\BLAdiccionesCliente.cs" />
     <Compile Include="BLSeguroSigloXXl\BLCLientes.cs" />
     <Compile Include="BLSeguroSigloXXl\BLCoberturas.cs" />
     <Compile Include="BLSeguroSigloXXl\BLRegistroPoliza.cs" />
     <Compile Include="Clases\Correo.cs" />
+    <Compile Include="Clases\NormalizarTexto.cs" />
     <Compile Include="Controllers\AdiccionesController.cs" />
     <Compile Include="Controllers\AdiccionesPorClientesController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\CoberturasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\OtrosController.cs" />
+    <Compile Include="Controllers\ReportePolizasPorClientesController.cs" />
     <Compile Include="Controllers\PrincipalController.cs" />
     <Compile Include="Controllers\RegistroPolizaController.cs" />
+    <Compile Include="Controllers\ReporteAdiccionesPorClienteController.cs" />
     <Compile Include="Filtros\VerificaSession.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -191,6 +196,9 @@
     <Compile Include="Models\pa_AdiccionesEncabezado_Select_Result.cs">
       <DependentUpon>BDSegurosSigloXXl.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Pa_AdiccionesValidas_Select_Result.cs">
+      <DependentUpon>BDSegurosSigloXXl.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\pa_Adicciones_Select_Id_Result.cs">
       <DependentUpon>BDSegurosSigloXXl.tt</DependentUpon>
     </Compile>
@@ -201,6 +209,9 @@
       <DependentUpon>BDSegurosSigloXXl.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\pa_Canton_Select_Result.cs">
+      <DependentUpon>BDSegurosSigloXXl.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\pa_Clientes_Select_Datos_Result.cs">
       <DependentUpon>BDSegurosSigloXXl.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\pa_Clientes_Select_Id_Result.cs">
@@ -215,13 +226,31 @@
     <Compile Include="Models\pa_CoberturaPoliza_Select_Result.cs">
       <DependentUpon>BDSegurosSigloXXl.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\pa_CoberturasDisponibles_Result.cs">
+      <DependentUpon>BDSegurosSigloXXl.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\pa_DireccionCliente_Id_Result.cs">
+      <DependentUpon>BDSegurosSigloXXl.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\pa_Distritos_Select_Result.cs">
       <DependentUpon>BDSegurosSigloXXl.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\pa_Distrito_Select_Result.cs">
+    <Compile Include="Models\pa_Distrito_Select_Id_Result.cs">
+      <DependentUpon>BDSegurosSigloXXl.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\pa_HistorialClientes_Select_Result.cs">
+      <DependentUpon>BDSegurosSigloXXl.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\pa_HistorialCliente_Select_Id_Result.cs">
       <DependentUpon>BDSegurosSigloXXl.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\pa_Provincias_Select_Result.cs">
+      <DependentUpon>BDSegurosSigloXXl.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\pa_RegistroPoliza_Reporte_Cliente_Select_Result.cs">
+      <DependentUpon>BDSegurosSigloXXl.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\pa_RegistroPoliza_Reporte_Select_Result.cs">
       <DependentUpon>BDSegurosSigloXXl.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\pa_RegistroPoliza_Select_Id_Result.cs">
@@ -260,11 +289,29 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Carousel.css" />
+    <Content Include="Content\ClienteHistorial\ClienteHistorial.css" />
+    <Content Include="Content\ClienteRegistro\ClienteRegistro.css" />
     <Content Include="Content\Clientes\Clientes.css" />
     <Content Include="Content\Coberturas\Coberturas.css" />
     <Content Include="Content\General.css" />
     <Content Include="Content\RegistroPoliza\Pasos.css" />
     <Content Include="Content\RegistroPoliza\RegistroPoliza.css" />
+    <Content Include="Content\ReporteAdiccionesPorCliente\ReporteAdiccionesPorCliente.css" />
+    <Content Include="Content\ReportePolizasPorClients\ReportePolizasPorClientes.css" />
+    <Content Include="Images\auto.png" />
+    <Content Include="Images\casa.png" />
+    <Content Include="Images\corazon.png" />
+    <Content Include="Images\Dinero.png" />
+    <Content Include="Images\Seguro-Logo-.png" />
+    <Content Include="Images\Seguro-Logo.png" />
+    <Content Include="Images\sprite-seguros.png" />
+    <Content Include="Images\Usuario.png" />
+    <Content Include="Multimedia\Seguros.mp3" />
+    <Content Include="Multimedia\Seguros.mp4" />
+    <Content Include="Scripts\Carousel.js" />
+    <Content Include="Scripts\ClienteRegistro\ClienteHistorial.js" />
+    <Content Include="Scripts\ClienteRegistro\ClienteRegistro.js" />
     <Content Include="Scripts\Clientes\Acciones.js" />
     <Content Include="Scripts\Clientes\ElementosjQueryUI.js" />
     <Content Include="Scripts\Clientes\Geografia.js" />
@@ -294,6 +341,7 @@
     <Content Include="Models\BDSegurosSigloXXl.edmx.diagram">
       <DependentUpon>BDSegurosSigloXXl.edmx</DependentUpon>
     </Content>
+    <Content Include="Content\Carousel.less" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\Clientes\Clientes.js" />
     <Content Include="Scripts\Clientes\Pasos.js" />
@@ -309,8 +357,12 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Principal\Principal.js" />
     <Content Include="Scripts\RegistroPoliza\Pasos.js" />
     <Content Include="Scripts\RegistroPoliza\RegistroPoliza.js" />
+    <Content Include="Scripts\ReporteAdiccionesPorCliente\ReporteAdiccionesPorCliente.js" />
+    <Content Include="Scripts\ReportePolizasPorClientes\ReportePolizasPorClientes.js" />
+    <Content Include="Scripts\ScripGenerico.js" />
     <Content Include="Scripts\ValidacionesGenericas.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -330,11 +382,14 @@
     <Content Include="Views\Adicciones\Adicciones.cshtml" />
     <Content Include="Views\Clientes\Clientes.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
-    <Content Include="Views\Adicciones\SinPermiso.cshtml" />
     <Content Include="Views\Principal\Principal.cshtml" />
     <Content Include="Views\Coberturas\Coberturas.cshtml" />
     <Content Include="Views\RegistroPoliza\RegistroPoliza.cshtml" />
     <Content Include="Views\AdiccionesPorClientes\AdiccionesPorClientes.cshtml" />
+    <Content Include="Views\ReporteAdiccionesPorCliente\ReporteAdiccionesPorCliente.cshtml" />
+    <Content Include="Views\ReportePolizasPorClientes\ReportePolizasPorClientes.cshtml" />
+    <Content Include="Views\AdiccionesPorClientes\ClienteHistorial.cshtml" />
+    <Content Include="Views\Otros\SinPermiso.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

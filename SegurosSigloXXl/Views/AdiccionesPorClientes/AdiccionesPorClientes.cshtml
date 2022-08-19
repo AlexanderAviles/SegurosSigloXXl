@@ -1,4 +1,4 @@
-﻿
+﻿@model List<SegurosSigloXXl.Models.pa_AdiccionesEncabezado_Select_Result>
 @{
     ViewBag.Title = "AdiccionesPorClientes";
     Layout = "~/Views/Shared/_LayaoutGeneral.cshtml";
@@ -6,3 +6,34 @@
 
 <h2>Adicciones Por Clientes</h2>
 
+<div class="container">
+    <div class="content-area column full" id="contenido">
+        <main id="main" class="Principal">
+            <div class="grid portfoliogrid" id="">
+                @foreach (SegurosSigloXXl.Models.pa_AdiccionesEncabezado_Select_Result Clientes in Model)
+                {
+                    <article class="hentry">
+                        <header class="entry-header">
+                            <div class="entry-thumbnail">
+                                <a href="@Url.Action("ClienteHistorial","AdiccionesPorClientes",new {IdCliente = Clientes.IdCliente})"><img src="~/images/Usuario.png" style="width: 225px; height:225px" class="" alt="" /></a>
+                            </div>
+                            <a href="@Url.Action("ClienteHistorial","AdiccionesPorClientes",new {IdCliente = Clientes.IdCliente})" rel="bookmark"> <h4 class="entry-title">@Clientes.Nombre</h4></a>
+                            <label class='portfoliotype' href='portfolio-category.html'>Registro: </label>
+                            <label class='portfoliotype' href="">@Clientes.IdAdiccionCliente</label>
+                        </header>
+                    </article>
+                }
+            </div>
+        </main>
+    </div>
+</div>
+
+@section Estilos{
+
+    <link href="~/Content/ClienteRegistro/ClienteRegistro.css" rel="stylesheet" />
+}
+@section Scripts{
+
+    <script src="~/Scripts/ClienteRegistro/ClienteRegistro.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+}

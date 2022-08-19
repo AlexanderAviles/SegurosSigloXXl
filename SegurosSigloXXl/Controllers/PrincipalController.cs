@@ -11,19 +11,25 @@ namespace SegurosSigloXXl.Controllers
     public class PrincipalController : Controller
     {
         private Usuarios oUsurio;
+        private Clientes oCliente;
         // GET: Principal
         public ActionResult Principal()
         {
 
             oUsurio = (Usuarios)Session["Usuario"];
-            if(oUsurio != null)
+            oCliente = (Clientes)Session["Cliente"];
+            string PrimeraVez = (string)Session["PrimeraVez"];
+            if (oUsurio != null)
             {
                 ViewBag.TipoUsuario = oUsurio.TipoUsuario;
+                ViewBag.NombreCliente = oCliente.Nombre + " " + oCliente.PrimerApellido + " " + oCliente.SegundoApellido;
+                ViewBag.PrimeraVez = PrimeraVez;
                 return View();
             }
             return View();
 
         }
+
 
     }
 }

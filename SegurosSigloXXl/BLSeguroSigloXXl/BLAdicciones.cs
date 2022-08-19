@@ -14,6 +14,7 @@ namespace SegurosSigloXXl.BLSeguroSigloXXl
 
         }
 
+        #region INSERTAR ADICCION
         public (string, bool) InsertarAdiccion(string pNombre, string pDescripcion, string pCodgio)
         {
             /// Variable que registra la cantidad de registros afectados
@@ -22,6 +23,20 @@ namespace SegurosSigloXXl.BLSeguroSigloXXl
             int RegistrosAfectados = 0;
             string resultado = "";
             bool e;
+
+            List<pa_Adicciones_Select_Result> Adicciones = new List<pa_Adicciones_Select_Result>();
+            Adicciones = this.DBSeguros.pa_Adicciones_Select(null).ToList();
+
+            foreach (pa_Adicciones_Select_Result fNombre in Adicciones)
+            {
+                if (fNombre.Nombre.ToLower() == pNombre.ToLower())
+                {
+                    resultado = "No se puede insertar, ya existe una adiccion con ese nombre";
+                    e = true;
+                    return (resultado, e);
+                }
+            }
+
             try
             {
                 RegistrosAfectados = DBSeguros.pa_Adicciones_Insert(pNombre, pDescripcion, pCodgio);
@@ -46,8 +61,9 @@ namespace SegurosSigloXXl.BLSeguroSigloXXl
             }
             return (resultado,e);
         }
+        #endregion FIN INSERTAR ADICCION
 
-
+        #region ELIMINAR ADICCION
         public (string, bool) EliminarAdiccion(int IdAdiccion)
         {
             /// Variable que registra la cantidad de registros afectados
@@ -80,7 +96,9 @@ namespace SegurosSigloXXl.BLSeguroSigloXXl
             }
             return (resultado, e);
         }
+        #endregion FIN ELIMINAR ADICCION
 
+        #region MODIFICAR ADICCION
         public (string, bool) ModificarAdiccion(int pIdAdiccion,string pNombre, string pDescripcion, string pCodgio)
         {
             /// Variable que registra la cantidad de registros afectados
@@ -89,6 +107,20 @@ namespace SegurosSigloXXl.BLSeguroSigloXXl
             int RegistrosAfectados = 0;
             string resultado = "";
             bool e;
+
+            List<pa_Adicciones_Select_Result> Adicciones = new List<pa_Adicciones_Select_Result>();
+            Adicciones = this.DBSeguros.pa_Adicciones_Select(null).ToList();
+
+            foreach (pa_Adicciones_Select_Result fNombre in Adicciones)
+            {
+                if (fNombre.Nombre.ToLower() == pNombre.ToLower() && fNombre.IdAdiccion != pIdAdiccion)
+                {
+                    resultado = "No se puede modificar, ya existe una adiccion con ese nombre";
+                    e = true;
+                    return (resultado, e);
+                }
+            }
+
             try
             {
                 RegistrosAfectados = DBSeguros.pa_Adicciones_Update(pIdAdiccion, pNombre, pDescripcion, pCodgio);
@@ -113,5 +145,6 @@ namespace SegurosSigloXXl.BLSeguroSigloXXl
             }
             return (resultado, e);
         }
+        #endregion FIN MODIFICAR ADICCION
     }
 }

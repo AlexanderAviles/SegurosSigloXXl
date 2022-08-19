@@ -70,3 +70,29 @@
     animation-name: bounce-animation;
     animation-duration: 2s;
 }
+
+.Back {
+    position: relative;
+    padding-bottom: 3em;
+    min-height: 100vh;
+    background-image: linear-gradient(to bottom, #e6eaf2, #e1eaf4, #dbeaf4, #d4ebf3, #ceebf1, #c4e9ee, #bae7e9, #b0e5e4, #9fe0de, #8ddbd8, #7ad6d1, #65d1ca);
+}
+
+.Footer {
+    bottom: 0;
+    width: 100%;
+    position: absolute;
+}
+.Footer-Color {
+    background-color: rgb(34,34,34);
+    width: 100%;
+    color: white;
+    position: absolute;
+    bottom: 0;
+}
+
+.Footer-Color p{
+    margin-left: 50px;
+    font-weight: 500;
+
+}

@@ -136,13 +136,17 @@ namespace SegurosSigloXXl.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pa_AdiccionesDetalle_Select_Result>("pa_AdiccionesDetalle_Select", idClienteParameter);
         }
     
-        public virtual ObjectResult<pa_AdiccionesDetalle_Select_Id_Result> pa_AdiccionesDetalle_Select_Id(Nullable<int> idCliente)
+        public virtual ObjectResult<pa_AdiccionesDetalle_Select_Id_Result> pa_AdiccionesDetalle_Select_Id(Nullable<int> idCliente, Nullable<int> idAdiccionDetalle)
         {
             var idClienteParameter = idCliente.HasValue ?
                 new ObjectParameter("IdCliente", idCliente) :
                 new ObjectParameter("IdCliente", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pa_AdiccionesDetalle_Select_Id_Result>("pa_AdiccionesDetalle_Select_Id", idClienteParameter);
+            var idAdiccionDetalleParameter = idAdiccionDetalle.HasValue ?
+                new ObjectParameter("IdAdiccionDetalle", idAdiccionDetalle) :
+                new ObjectParameter("IdAdiccionDetalle", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pa_AdiccionesDetalle_Select_Id_Result>("pa_AdiccionesDetalle_Select_Id", idClienteParameter, idAdiccionDetalleParameter);
         }
     
         public virtual int pa_AdiccionesDetalle_Update(Nullable<int> idAdiccionDetalle, Nullable<int> idAdiccionCliente, Nullable<int> idAdiccion)
@@ -162,11 +166,6 @@ namespace SegurosSigloXXl.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pa_AdiccionesDetalle_Update", idAdiccionDetalleParameter, idAdiccionClienteParameter, idAdiccionParameter);
         }
     
-        public virtual ObjectResult<pa_AdiccionesEncabezado_Select_Result> pa_AdiccionesEncabezado_Select()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pa_AdiccionesEncabezado_Select_Result>("pa_AdiccionesEncabezado_Select");
-        }
-    
         public virtual ObjectResult<pa_AdiccionesEncabezado_Select_Id_Result> pa_AdiccionesEncabezado_Select_Id(Nullable<int> idCliente)
         {
             var idClienteParameter = idCliente.HasValue ?
@@ -174,6 +173,15 @@ namespace SegurosSigloXXl.Models
                 new ObjectParameter("IdCliente", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pa_AdiccionesEncabezado_Select_Id_Result>("pa_AdiccionesEncabezado_Select_Id", idClienteParameter);
+        }
+    
+        public virtual ObjectResult<Pa_AdiccionesValidas_Select_Result> Pa_AdiccionesValidas_Select(Nullable<int> idUsuario)
+        {
+            var idUsuarioParameter = idUsuario.HasValue ?
+                new ObjectParameter("IdUsuario", idUsuario) :
+                new ObjectParameter("IdUsuario", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pa_AdiccionesValidas_Select_Result>("Pa_AdiccionesValidas_Select", idUsuarioParameter);
         }
     
         public virtual int pa_Canton_Delete(Nullable<int> id_Canton)
@@ -254,13 +262,139 @@ namespace SegurosSigloXXl.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pa_Clientes_Delete", idClienteParameter);
         }
     
-        public virtual ObjectResult<pa_Clientes_Select_Result> pa_Clientes_Select(string nombre)
+        public virtual int pa_Clientes_Insert(Nullable<int> cedula, string genero, Nullable<System.DateTime> fechaNacimiento, string nombre, string primerApellido, string segundoApellido, Nullable<int> telefono, string correo, string direccionFisica, Nullable<int> idProvincia, Nullable<int> idCanton, Nullable<int> idDistrito, string contrasenia, string tipoUsuario)
         {
+            var cedulaParameter = cedula.HasValue ?
+                new ObjectParameter("Cedula", cedula) :
+                new ObjectParameter("Cedula", typeof(int));
+    
+            var generoParameter = genero != null ?
+                new ObjectParameter("Genero", genero) :
+                new ObjectParameter("Genero", typeof(string));
+    
+            var fechaNacimientoParameter = fechaNacimiento.HasValue ?
+                new ObjectParameter("FechaNacimiento", fechaNacimiento) :
+                new ObjectParameter("FechaNacimiento", typeof(System.DateTime));
+    
             var nombreParameter = nombre != null ?
                 new ObjectParameter("Nombre", nombre) :
                 new ObjectParameter("Nombre", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pa_Clientes_Select_Result>("pa_Clientes_Select", nombreParameter);
+            var primerApellidoParameter = primerApellido != null ?
+                new ObjectParameter("PrimerApellido", primerApellido) :
+                new ObjectParameter("PrimerApellido", typeof(string));
+    
+            var segundoApellidoParameter = segundoApellido != null ?
+                new ObjectParameter("SegundoApellido", segundoApellido) :
+                new ObjectParameter("SegundoApellido", typeof(string));
+    
+            var telefonoParameter = telefono.HasValue ?
+                new ObjectParameter("Telefono", telefono) :
+                new ObjectParameter("Telefono", typeof(int));
+    
+            var correoParameter = correo != null ?
+                new ObjectParameter("Correo", correo) :
+                new ObjectParameter("Correo", typeof(string));
+    
+            var direccionFisicaParameter = direccionFisica != null ?
+                new ObjectParameter("DireccionFisica", direccionFisica) :
+                new ObjectParameter("DireccionFisica", typeof(string));
+    
+            var idProvinciaParameter = idProvincia.HasValue ?
+                new ObjectParameter("IdProvincia", idProvincia) :
+                new ObjectParameter("IdProvincia", typeof(int));
+    
+            var idCantonParameter = idCanton.HasValue ?
+                new ObjectParameter("IdCanton", idCanton) :
+                new ObjectParameter("IdCanton", typeof(int));
+    
+            var idDistritoParameter = idDistrito.HasValue ?
+                new ObjectParameter("IdDistrito", idDistrito) :
+                new ObjectParameter("IdDistrito", typeof(int));
+    
+            var contraseniaParameter = contrasenia != null ?
+                new ObjectParameter("Contrasenia", contrasenia) :
+                new ObjectParameter("Contrasenia", typeof(string));
+    
+            var tipoUsuarioParameter = tipoUsuario != null ?
+                new ObjectParameter("TipoUsuario", tipoUsuario) :
+                new ObjectParameter("TipoUsuario", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pa_Clientes_Insert", cedulaParameter, generoParameter, fechaNacimientoParameter, nombreParameter, primerApellidoParameter, segundoApellidoParameter, telefonoParameter, correoParameter, direccionFisicaParameter, idProvinciaParameter, idCantonParameter, idDistritoParameter, contraseniaParameter, tipoUsuarioParameter);
+        }
+    
+        public virtual ObjectResult<pa_Clientes_Select_Id_Result> pa_Clientes_Select_Id(Nullable<int> idCliente)
+        {
+            var idClienteParameter = idCliente.HasValue ?
+                new ObjectParameter("IdCliente", idCliente) :
+                new ObjectParameter("IdCliente", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pa_Clientes_Select_Id_Result>("pa_Clientes_Select_Id", idClienteParameter);
+        }
+    
+        public virtual int pa_Clientes_Update(Nullable<int> idCliente, Nullable<int> cedula, string genero, Nullable<System.DateTime> fechaNacimiento, string nombre, string primerApellido, string segundoApellido, Nullable<int> telefono, string correo, string direccionFisica, Nullable<int> idProvincia, Nullable<int> idCanton, Nullable<int> idDistrito, string contrasenia, string tipoUsuario)
+        {
+            var idClienteParameter = idCliente.HasValue ?
+                new ObjectParameter("IdCliente", idCliente) :
+                new ObjectParameter("IdCliente", typeof(int));
+    
+            var cedulaParameter = cedula.HasValue ?
+                new ObjectParameter("Cedula", cedula) :
+                new ObjectParameter("Cedula", typeof(int));
+    
+            var generoParameter = genero != null ?
+                new ObjectParameter("Genero", genero) :
+                new ObjectParameter("Genero", typeof(string));
+    
+            var fechaNacimientoParameter = fechaNacimiento.HasValue ?
+                new ObjectParameter("FechaNacimiento", fechaNacimiento) :
+                new ObjectParameter("FechaNacimiento", typeof(System.DateTime));
+    
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("Nombre", nombre) :
+                new ObjectParameter("Nombre", typeof(string));
+    
+            var primerApellidoParameter = primerApellido != null ?
+                new ObjectParameter("PrimerApellido", primerApellido) :
+                new ObjectParameter("PrimerApellido", typeof(string));
+    
+            var segundoApellidoParameter = segundoApellido != null ?
+                new ObjectParameter("SegundoApellido", segundoApellido) :
+                new ObjectParameter("SegundoApellido", typeof(string));
+    
+            var telefonoParameter = telefono.HasValue ?
+                new ObjectParameter("Telefono", telefono) :
+                new ObjectParameter("Telefono", typeof(int));
+    
+            var correoParameter = correo != null ?
+                new ObjectParameter("Correo", correo) :
+                new ObjectParameter("Correo", typeof(string));
+    
+            var direccionFisicaParameter = direccionFisica != null ?
+                new ObjectParameter("DireccionFisica", direccionFisica) :
+                new ObjectParameter("DireccionFisica", typeof(string));
+    
+            var idProvinciaParameter = idProvincia.HasValue ?
+                new ObjectParameter("IdProvincia", idProvincia) :
+                new ObjectParameter("IdProvincia", typeof(int));
+    
+            var idCantonParameter = idCanton.HasValue ?
+                new ObjectParameter("IdCanton", idCanton) :
+                new ObjectParameter("IdCanton", typeof(int));
+    
+            var idDistritoParameter = idDistrito.HasValue ?
+                new ObjectParameter("IdDistrito", idDistrito) :
+                new ObjectParameter("IdDistrito", typeof(int));
+    
+            var contraseniaParameter = contrasenia != null ?
+                new ObjectParameter("Contrasenia", contrasenia) :
+                new ObjectParameter("Contrasenia", typeof(string));
+    
+            var tipoUsuarioParameter = tipoUsuario != null ?
+                new ObjectParameter("TipoUsuario", tipoUsuario) :
+                new ObjectParameter("TipoUsuario", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pa_Clientes_Update", idClienteParameter, cedulaParameter, generoParameter, fechaNacimientoParameter, nombreParameter, primerApellidoParameter, segundoApellidoParameter, telefonoParameter, correoParameter, direccionFisicaParameter, idProvinciaParameter, idCantonParameter, idDistritoParameter, contraseniaParameter, tipoUsuarioParameter);
         }
     
         public virtual int pa_CoberturaPoliza_Delete(Nullable<int> idCobertura)
@@ -298,6 +432,15 @@ namespace SegurosSigloXXl.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pa_CoberturaPoliza_Select_Result>("pa_CoberturaPoliza_Select", nombreParameter);
         }
     
+        public virtual ObjectResult<pa_CoberturaPoliza_Select_Id_Result> pa_CoberturaPoliza_Select_Id(Nullable<int> idCoberturaPoliza)
+        {
+            var idCoberturaPolizaParameter = idCoberturaPoliza.HasValue ?
+                new ObjectParameter("IdCoberturaPoliza", idCoberturaPoliza) :
+                new ObjectParameter("IdCoberturaPoliza", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pa_CoberturaPoliza_Select_Id_Result>("pa_CoberturaPoliza_Select_Id", idCoberturaPolizaParameter);
+        }
+    
         public virtual int pa_CoberturaPoliza_Update(Nullable<int> idCobertura, string nombreCobertura, string descripcion, Nullable<float> porcentaje)
         {
             var idCoberturaParameter = idCobertura.HasValue ?
@@ -317,6 +460,64 @@ namespace SegurosSigloXXl.Models
                 new ObjectParameter("Porcentaje", typeof(float));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pa_CoberturaPoliza_Update", idCoberturaParameter, nombreCoberturaParameter, descripcionParameter, porcentajeParameter);
+        }
+    
+        public virtual ObjectResult<pa_CoberturasDisponibles_Result> pa_CoberturasDisponibles(Nullable<int> idCliente)
+        {
+            var idClienteParameter = idCliente.HasValue ?
+                new ObjectParameter("IdCliente", idCliente) :
+                new ObjectParameter("IdCliente", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pa_CoberturasDisponibles_Result>("pa_CoberturasDisponibles", idClienteParameter);
+        }
+    
+        public virtual ObjectResult<pa_DireccionCliente_Id_Result> pa_DireccionCliente_Id(Nullable<int> idCliente)
+        {
+            var idClienteParameter = idCliente.HasValue ?
+                new ObjectParameter("IdCliente", idCliente) :
+                new ObjectParameter("IdCliente", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pa_DireccionCliente_Id_Result>("pa_DireccionCliente_Id", idClienteParameter);
+        }
+    
+        public virtual ObjectResult<pa_Distrito_Select_Id_Result> pa_Distrito_Select_Id(Nullable<int> idDistrito)
+        {
+            var idDistritoParameter = idDistrito.HasValue ?
+                new ObjectParameter("IdDistrito", idDistrito) :
+                new ObjectParameter("IdDistrito", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pa_Distrito_Select_Id_Result>("pa_Distrito_Select_Id", idDistritoParameter);
+        }
+    
+        public virtual ObjectResult<pa_Distritos_Select_Result> pa_Distritos_Select(string nombre, Nullable<int> id_Canton)
+        {
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("nombre", nombre) :
+                new ObjectParameter("nombre", typeof(string));
+    
+            var id_CantonParameter = id_Canton.HasValue ?
+                new ObjectParameter("id_Canton", id_Canton) :
+                new ObjectParameter("id_Canton", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pa_Distritos_Select_Result>("pa_Distritos_Select", nombreParameter, id_CantonParameter);
+        }
+    
+        public virtual ObjectResult<pa_HistorialCliente_Select_Id_Result> pa_HistorialCliente_Select_Id(Nullable<int> idCliente)
+        {
+            var idClienteParameter = idCliente.HasValue ?
+                new ObjectParameter("IdCliente", idCliente) :
+                new ObjectParameter("IdCliente", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pa_HistorialCliente_Select_Id_Result>("pa_HistorialCliente_Select_Id", idClienteParameter);
+        }
+    
+        public virtual ObjectResult<pa_HistorialClientes_Select_Result> pa_HistorialClientes_Select(string nombre)
+        {
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("Nombre", nombre) :
+                new ObjectParameter("Nombre", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pa_HistorialClientes_Select_Result>("pa_HistorialClientes_Select", nombreParameter);
         }
     
         public virtual ObjectResult<pa_Provincias_Select_Result> pa_Provincias_Select(string nombre)
@@ -440,174 +641,13 @@ namespace SegurosSigloXXl.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
         }
     
-        public virtual ObjectResult<pa_Distritos_Select_Result> pa_Distritos_Select(string nombre, Nullable<int> id_Canton)
-        {
-            var nombreParameter = nombre != null ?
-                new ObjectParameter("nombre", nombre) :
-                new ObjectParameter("nombre", typeof(string));
-    
-            var id_CantonParameter = id_Canton.HasValue ?
-                new ObjectParameter("id_Canton", id_Canton) :
-                new ObjectParameter("id_Canton", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pa_Distritos_Select_Result>("pa_Distritos_Select", nombreParameter, id_CantonParameter);
-        }
-    
-        public virtual int pa_Clientes_Insert(Nullable<int> cedula, string genero, Nullable<System.DateTime> fechaNacimiento, string nombre, string primerApellido, string segundoApellido, Nullable<int> telefono, string correo, string direccionFisica, Nullable<int> idProvincia, Nullable<int> idCanton, Nullable<int> idDistrito, string contrasenia, string tipoUsuario)
-        {
-            var cedulaParameter = cedula.HasValue ?
-                new ObjectParameter("Cedula", cedula) :
-                new ObjectParameter("Cedula", typeof(int));
-    
-            var generoParameter = genero != null ?
-                new ObjectParameter("Genero", genero) :
-                new ObjectParameter("Genero", typeof(string));
-    
-            var fechaNacimientoParameter = fechaNacimiento.HasValue ?
-                new ObjectParameter("FechaNacimiento", fechaNacimiento) :
-                new ObjectParameter("FechaNacimiento", typeof(System.DateTime));
-    
-            var nombreParameter = nombre != null ?
-                new ObjectParameter("Nombre", nombre) :
-                new ObjectParameter("Nombre", typeof(string));
-    
-            var primerApellidoParameter = primerApellido != null ?
-                new ObjectParameter("PrimerApellido", primerApellido) :
-                new ObjectParameter("PrimerApellido", typeof(string));
-    
-            var segundoApellidoParameter = segundoApellido != null ?
-                new ObjectParameter("SegundoApellido", segundoApellido) :
-                new ObjectParameter("SegundoApellido", typeof(string));
-    
-            var telefonoParameter = telefono.HasValue ?
-                new ObjectParameter("Telefono", telefono) :
-                new ObjectParameter("Telefono", typeof(int));
-    
-            var correoParameter = correo != null ?
-                new ObjectParameter("Correo", correo) :
-                new ObjectParameter("Correo", typeof(string));
-    
-            var direccionFisicaParameter = direccionFisica != null ?
-                new ObjectParameter("DireccionFisica", direccionFisica) :
-                new ObjectParameter("DireccionFisica", typeof(string));
-    
-            var idProvinciaParameter = idProvincia.HasValue ?
-                new ObjectParameter("IdProvincia", idProvincia) :
-                new ObjectParameter("IdProvincia", typeof(int));
-    
-            var idCantonParameter = idCanton.HasValue ?
-                new ObjectParameter("IdCanton", idCanton) :
-                new ObjectParameter("IdCanton", typeof(int));
-    
-            var idDistritoParameter = idDistrito.HasValue ?
-                new ObjectParameter("IdDistrito", idDistrito) :
-                new ObjectParameter("IdDistrito", typeof(int));
-    
-            var contraseniaParameter = contrasenia != null ?
-                new ObjectParameter("Contrasenia", contrasenia) :
-                new ObjectParameter("Contrasenia", typeof(string));
-    
-            var tipoUsuarioParameter = tipoUsuario != null ?
-                new ObjectParameter("TipoUsuario", tipoUsuario) :
-                new ObjectParameter("TipoUsuario", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pa_Clientes_Insert", cedulaParameter, generoParameter, fechaNacimientoParameter, nombreParameter, primerApellidoParameter, segundoApellidoParameter, telefonoParameter, correoParameter, direccionFisicaParameter, idProvinciaParameter, idCantonParameter, idDistritoParameter, contraseniaParameter, tipoUsuarioParameter);
-        }
-    
-        public virtual ObjectResult<pa_Distrito_Select_Result> pa_Distrito_Select(string nombre, Nullable<int> id_Canton)
-        {
-            var nombreParameter = nombre != null ?
-                new ObjectParameter("nombre", nombre) :
-                new ObjectParameter("nombre", typeof(string));
-    
-            var id_CantonParameter = id_Canton.HasValue ?
-                new ObjectParameter("id_Canton", id_Canton) :
-                new ObjectParameter("id_Canton", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pa_Distrito_Select_Result>("pa_Distrito_Select", nombreParameter, id_CantonParameter);
-        }
-    
-        public virtual ObjectResult<pa_CoberturaPoliza_Select_Id_Result> pa_CoberturaPoliza_Select_Id(Nullable<int> idCoberturaPoliza)
-        {
-            var idCoberturaPolizaParameter = idCoberturaPoliza.HasValue ?
-                new ObjectParameter("IdCoberturaPoliza", idCoberturaPoliza) :
-                new ObjectParameter("IdCoberturaPoliza", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pa_CoberturaPoliza_Select_Id_Result>("pa_CoberturaPoliza_Select_Id", idCoberturaPolizaParameter);
-        }
-    
-        public virtual ObjectResult<pa_Clientes_Select_Id_Result> pa_Clientes_Select_Id(Nullable<int> idCliente)
+        public virtual ObjectResult<pa_Clientes_Select_Datos_Result> pa_Clientes_Select_Datos(Nullable<int> idCliente)
         {
             var idClienteParameter = idCliente.HasValue ?
                 new ObjectParameter("IdCliente", idCliente) :
                 new ObjectParameter("IdCliente", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pa_Clientes_Select_Id_Result>("pa_Clientes_Select_Id", idClienteParameter);
-        }
-    
-        public virtual int pa_Clientes_Update(Nullable<int> idCliente, Nullable<int> cedula, string genero, Nullable<System.DateTime> fechaNacimiento, string nombre, string primerApellido, string segundoApellido, Nullable<int> telefono, string correo, string direccionFisica, Nullable<int> idProvincia, Nullable<int> idCanton, Nullable<int> idDistrito, string contrasenia, string tipoUsuario)
-        {
-            var idClienteParameter = idCliente.HasValue ?
-                new ObjectParameter("IdCliente", idCliente) :
-                new ObjectParameter("IdCliente", typeof(int));
-    
-            var cedulaParameter = cedula.HasValue ?
-                new ObjectParameter("Cedula", cedula) :
-                new ObjectParameter("Cedula", typeof(int));
-    
-            var generoParameter = genero != null ?
-                new ObjectParameter("Genero", genero) :
-                new ObjectParameter("Genero", typeof(string));
-    
-            var fechaNacimientoParameter = fechaNacimiento.HasValue ?
-                new ObjectParameter("FechaNacimiento", fechaNacimiento) :
-                new ObjectParameter("FechaNacimiento", typeof(System.DateTime));
-    
-            var nombreParameter = nombre != null ?
-                new ObjectParameter("Nombre", nombre) :
-                new ObjectParameter("Nombre", typeof(string));
-    
-            var primerApellidoParameter = primerApellido != null ?
-                new ObjectParameter("PrimerApellido", primerApellido) :
-                new ObjectParameter("PrimerApellido", typeof(string));
-    
-            var segundoApellidoParameter = segundoApellido != null ?
-                new ObjectParameter("SegundoApellido", segundoApellido) :
-                new ObjectParameter("SegundoApellido", typeof(string));
-    
-            var telefonoParameter = telefono.HasValue ?
-                new ObjectParameter("Telefono", telefono) :
-                new ObjectParameter("Telefono", typeof(int));
-    
-            var correoParameter = correo != null ?
-                new ObjectParameter("Correo", correo) :
-                new ObjectParameter("Correo", typeof(string));
-    
-            var direccionFisicaParameter = direccionFisica != null ?
-                new ObjectParameter("DireccionFisica", direccionFisica) :
-                new ObjectParameter("DireccionFisica", typeof(string));
-    
-            var idProvinciaParameter = idProvincia.HasValue ?
-                new ObjectParameter("IdProvincia", idProvincia) :
-                new ObjectParameter("IdProvincia", typeof(int));
-    
-            var idCantonParameter = idCanton.HasValue ?
-                new ObjectParameter("IdCanton", idCanton) :
-                new ObjectParameter("IdCanton", typeof(int));
-    
-            var idDistritoParameter = idDistrito.HasValue ?
-                new ObjectParameter("IdDistrito", idDistrito) :
-                new ObjectParameter("IdDistrito", typeof(int));
-    
-            var contraseniaParameter = contrasenia != null ?
-                new ObjectParameter("Contrasenia", contrasenia) :
-                new ObjectParameter("Contrasenia", typeof(string));
-    
-            var tipoUsuarioParameter = tipoUsuario != null ?
-                new ObjectParameter("TipoUsuario", tipoUsuario) :
-                new ObjectParameter("TipoUsuario", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pa_Clientes_Update", idClienteParameter, cedulaParameter, generoParameter, fechaNacimientoParameter, nombreParameter, primerApellidoParameter, segundoApellidoParameter, telefonoParameter, correoParameter, direccionFisicaParameter, idProvinciaParameter, idCantonParameter, idDistritoParameter, contraseniaParameter, tipoUsuarioParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pa_Clientes_Select_Datos_Result>("pa_Clientes_Select_Datos", idClienteParameter);
         }
     
         public virtual int pa_RegistroPoliza_Delete(Nullable<int> idRegistro)
@@ -619,7 +659,7 @@ namespace SegurosSigloXXl.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pa_RegistroPoliza_Delete", idRegistroParameter);
         }
     
-        public virtual int pa_RegistroPoliza_Insert(Nullable<int> idCobertura, Nullable<int> idCliente, Nullable<float> montoAsegurado)
+        public virtual int pa_RegistroPoliza_Insert(Nullable<int> idCobertura, Nullable<int> idCliente, Nullable<float> montoAsegurado, Nullable<System.DateTime> fechaVencimiento)
         {
             var idCoberturaParameter = idCobertura.HasValue ?
                 new ObjectParameter("IdCobertura", idCobertura) :
@@ -633,7 +673,25 @@ namespace SegurosSigloXXl.Models
                 new ObjectParameter("MontoAsegurado", montoAsegurado) :
                 new ObjectParameter("MontoAsegurado", typeof(float));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pa_RegistroPoliza_Insert", idCoberturaParameter, idClienteParameter, montoAseguradoParameter);
+            var fechaVencimientoParameter = fechaVencimiento.HasValue ?
+                new ObjectParameter("FechaVencimiento", fechaVencimiento) :
+                new ObjectParameter("FechaVencimiento", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pa_RegistroPoliza_Insert", idCoberturaParameter, idClienteParameter, montoAseguradoParameter, fechaVencimientoParameter);
+        }
+    
+        public virtual ObjectResult<pa_RegistroPoliza_Reporte_Cliente_Select_Result> pa_RegistroPoliza_Reporte_Cliente_Select(Nullable<int> idCliente)
+        {
+            var idClienteParameter = idCliente.HasValue ?
+                new ObjectParameter("IdCliente", idCliente) :
+                new ObjectParameter("IdCliente", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pa_RegistroPoliza_Reporte_Cliente_Select_Result>("pa_RegistroPoliza_Reporte_Cliente_Select", idClienteParameter);
+        }
+    
+        public virtual ObjectResult<pa_RegistroPoliza_Reporte_Select_Result> pa_RegistroPoliza_Reporte_Select()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pa_RegistroPoliza_Reporte_Select_Result>("pa_RegistroPoliza_Reporte_Select");
         }
     
         public virtual ObjectResult<pa_RegistroPoliza_Select_Result> pa_RegistroPoliza_Select(string nombrePoliza)
@@ -654,7 +712,7 @@ namespace SegurosSigloXXl.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pa_RegistroPoliza_Select_Id_Result>("pa_RegistroPoliza_Select_Id", idRegistroPolizaParameter);
         }
     
-        public virtual int pa_RegistroPoliza_Update(Nullable<int> idRegistro, Nullable<int> idCobertura, Nullable<int> idCliente, Nullable<float> montoAsegurado)
+        public virtual int pa_RegistroPoliza_Update(Nullable<int> idRegistro, Nullable<int> idCobertura, Nullable<int> idCliente, Nullable<float> montoAsegurado, Nullable<System.DateTime> fechaVencimiento)
         {
             var idRegistroParameter = idRegistro.HasValue ?
                 new ObjectParameter("IdRegistro", idRegistro) :
@@ -672,7 +730,33 @@ namespace SegurosSigloXXl.Models
                 new ObjectParameter("MontoAsegurado", montoAsegurado) :
                 new ObjectParameter("MontoAsegurado", typeof(float));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pa_RegistroPoliza_Update", idRegistroParameter, idCoberturaParameter, idClienteParameter, montoAseguradoParameter);
+            var fechaVencimientoParameter = fechaVencimiento.HasValue ?
+                new ObjectParameter("FechaVencimiento", fechaVencimiento) :
+                new ObjectParameter("FechaVencimiento", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pa_RegistroPoliza_Update", idRegistroParameter, idCoberturaParameter, idClienteParameter, montoAseguradoParameter, fechaVencimientoParameter);
+        }
+    
+        public virtual ObjectResult<pa_AdiccionesEncabezado_Select_Result> pa_AdiccionesEncabezado_Select(Nullable<int> idCliente)
+        {
+            var idClienteParameter = idCliente.HasValue ?
+                new ObjectParameter("IdCliente", idCliente) :
+                new ObjectParameter("IdCliente", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pa_AdiccionesEncabezado_Select_Result>("pa_AdiccionesEncabezado_Select", idClienteParameter);
+        }
+    
+        public virtual ObjectResult<pa_Clientes_Select_Result> pa_Clientes_Select(string nombre, Nullable<int> idCliente)
+        {
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("Nombre", nombre) :
+                new ObjectParameter("Nombre", typeof(string));
+    
+            var idClienteParameter = idCliente.HasValue ?
+                new ObjectParameter("IdCliente", idCliente) :
+                new ObjectParameter("IdCliente", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pa_Clientes_Select_Result>("pa_Clientes_Select", nombreParameter, idClienteParameter);
         }
     }
 }

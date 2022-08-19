@@ -2,22 +2,38 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using SegurosSigloXXl.Clases;
 using SegurosSigloXXl.Models;
+
 namespace SegurosSigloXXl.BLSeguroSigloXXl
 {
     public class BLCoberturas
     {
         readonly SegurosSigloXXlEntities DBSeguros = new SegurosSigloXXlEntities();
+        
         public BLCoberturas()
         {
 
         }
-
+        #region INSERTAR COBERTURA
         public (string, bool) InsertarCobertura(string pNombre, string pDescripcion, float? pPorcentaje)
         {
             int regAfect = 0;
             string resultado = "";
             bool TF;
+
+            List<pa_CoberturaPoliza_Select_Result> Coberturas = new List<pa_CoberturaPoliza_Select_Result>();
+            Coberturas = this.DBSeguros.pa_CoberturaPoliza_Select(null).ToList();
+            
+            foreach(pa_CoberturaPoliza_Select_Result fNombre in Coberturas)
+            {
+               if( fNombre.Nombre.ToLower() == pNombre.ToLower())
+                {
+                    resultado = "no se puede insertar, ya existe una cobertura con ese nombre";
+                    TF = true;
+                    return (resultado, TF);
+                }
+            }
             try
             {
                 regAfect = DBSeguros.pa_CoberturaPoliza_Insert(pNombre, pDescripcion, pPorcentaje);
@@ -42,6 +58,9 @@ namespace SegurosSigloXXl.BLSeguroSigloXXl
             }
             return (resultado, TF);
         }
+        #endregion FIN INSERTAR COBERTURA
+
+        #region ELIMINAR COBERTURA
         public (string, bool) EliminarCobertura(int IdCoberturaPoliza)
         {
             int regAfect = 0;
@@ -71,11 +90,29 @@ namespace SegurosSigloXXl.BLSeguroSigloXXl
             }
             return (resultado, TF);
         }
+        #endregion FIN ELIMINAR COBERTURA
+
+        #region MODIFICAR COBERTURA
         public (string, bool) ModificarCoberturas(int pIdCobertura, string pNombre, string pDescripcion, float? pPorcentaje)
         {
+           
+
             int regAfect = 0;
             string resultado = "";
             bool TF;
+            List<pa_CoberturaPoliza_Select_Result> Coberturas = new List<pa_CoberturaPoliza_Select_Result>();
+            Coberturas = this.DBSeguros.pa_CoberturaPoliza_Select(null).ToList();
+
+            foreach (pa_CoberturaPoliza_Select_Result fNombre in Coberturas)
+            {
+                if (fNombre.Nombre.ToLower() == pNombre.ToLower() && fNombre.IdCoberturaPoliza != pIdCobertura)
+                {
+                    resultado = "no se puede modificar, ya existe una cobertura con ese nombre";
+                    TF = true;
+                    return (resultado, TF);
+
+                }
+            }
             try
             {
                 regAfect = this.DBSeguros.pa_CoberturaPoliza_Update(pIdCobertura, pNombre, pDescripcion, pPorcentaje);
@@ -100,5 +137,7 @@ namespace SegurosSigloXXl.BLSeguroSigloXXl
             }
             return (resultado, TF);
         }
+        #endregion FIN MODIFICAR COBERTURA
     }
 }
+

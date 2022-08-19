@@ -5,22 +5,51 @@
 }
 
 @*<div class="danger">
-    @ViewBag.Error
-</div>*@
-<form id="FrmLogin" method="post">
-    <div class="form-group">
-        <label>Usuario</label>
-        <input type="text" name="Usuario" id="Usuario" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Contraseña</label>
-        <input type="password" name="Contrasenia" id="Contrasenia" class="form-control" />
-        <label class="" style="color: red">@ViewBag.Error</label>
-    </div>
-    
-    <div class="form-group">
-        <input type="submit" value="Iniciar sesion" id="BtnIniciar" class="btn btn-success" />
-        @*<a href="~/Adicciones/Adicciones" class="btn btn-default">Lista de adicciones</a>*@
-    </div>
-</form>
+        @ViewBag.Error
+    </div>*@
+<!-- Section: Design Block -->
+<section class="">
+    <!-- Jumbotron -->
+    @*<div class="px-4 py-5 px-md-5 text-center text-lg-start" style="background-color: hsl(0, 0%, 96%)">*@
+    <div class="px-4 py-5 px-md-5 text-center text-lg-start" style="display:flex; justify-content:center; margin-top: 10%; margin-bottom: 200px">
+        <div class="container">
+            <div class="row gx-lg-5 align-items-center">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <h1 class="my-5 display-3 fw-bold ls-tight">
+                        Seguros equipo del siglo XXl <br />
+                        <span class="text-primary" style="font-size: 20px">Los mejores seguros para ti</span>
+                    </h1>
+                    <p style="color: hsl(217, 10%, 50.8%)">
+                        El cuidado integral de la salud y bienestar es la nueva forma de entender la atención sanitaria, 
+                        con la que queremos ir un paso más allá y obtener una visión global. 
+                        Queremos conocer los factores que te hacen ser quien eres y cómo te encuentras en un momento dado. 
+                        De esta manera, podemos ayudarte a vivir de una manera plena: en lo bueno, en lo malo, 
+                        y también en cada momento a medio camino entre ambos, sintiéndote apoyado en todos los aspectos de tu vida.
+                    </p>
+                </div>
 
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <div class="card">
+                        <div class="card-body py-5 px-md-5" style="display:flex; justify-content:center;">
+                            <form id="FrmLogin" method="post">
+                                <div class="form-group">
+                                    <input type="text" name="Usuario" id="Usuario" class="form-control" placeholder="Corrreo eléctronico"/>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="Contrasenia" id="Contrasenia" class="form-control" placeholder="Contraseña"/>
+                                    <label class="text-center" style="color: red">@ViewBag.Error</label>
+                                </div>
+                                <!-- Submit button -->
+                                <button type="submit"value="Iniciar sesion" id="BtnIniciar" class="btn btn-primary btn-block mb-4">
+                                    Iniciar sesion
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Jumbotron -->
+</section>
+<!-- Section: Design Block -->

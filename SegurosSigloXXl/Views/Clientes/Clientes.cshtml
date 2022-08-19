@@ -10,9 +10,7 @@
     <link href="~/Content/Clientes/Clientes.css" rel="stylesheet" />
     <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
 }
-
 <input type="text" value="@ViewBag.TipoUsuario" id="TipoUsuario" hidden />
-
 
 <h2 class="">Clientes</h2>
 <div class="form-group">
@@ -37,8 +35,8 @@
             <!-- Barras de progreso -->
             <div class="barras-progreso">
                 <div class="progreso" id="progreso"></div>
-                <div class="progreso-paso progreso-paso-activo" data-title="Informacion personal"></div>
-                <div class="progreso-paso" data-title="Direccion"></div>
+                <div class="progreso-paso progreso-paso-activo" data-title="Información personal"></div>
+                <div class="progreso-paso" data-title="Dirección"></div>
                 <div class="progreso-paso" data-title="Otros"></div>
                 <div class="progreso-paso" data-title="Cuenta"></div>
                 <!-- <div class="progreso-paso" data-title="Contacto"></div> -->
@@ -48,8 +46,8 @@
                 <div class="form-paso form-paso-activo Paso1">
 
                     <div class="form-group">
-                        <label>Cedula</label>
-                        <input type="number" name="Cedula" id="Cedula" class="form-control" />
+                        <label>Cédula</label>
+                        <input  name="Cedula" id="Cedula" class="form-control" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type = "number" maxlength = "9"/>
                     </div>
                     <div class="form-group">
                         <label>Nombre</label>
@@ -81,7 +79,7 @@
                     <div class="form-group">
                         <label>Cantón</label>
                         <select name="Canton" id="Canton" class="form-control">
-                            <option value="">Seleccione un canton</option>
+                            <option value="">Seleccione un cantón</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -91,7 +89,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Direccion fisica</label>
+                        <label>Dirección física</label>
                         <input type="text" name="Direccion" id="Direccion" class="form-control" />
                     </div>
                     <div class="bnts-group">
@@ -105,10 +103,10 @@
                 <div class="form-paso">
                     <div class="form-group">
                         <label>Teléfono</label>
-                        <input type="number" name="Telefono" id="Telefono" class="form-control" />
+                        <input type="number" name="Telefono" id="Telefono" class="form-control" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "8"/>
                     </div>
                     <div class="form-group">
-                        <label>Correo electronico</label>
+                        <label>Correo electrónico</label>
                         <input type="email" name="Correo" id="Correo" class="form-control" />
                     </div>
                     <div class="form-group">
@@ -162,8 +160,8 @@
             <th>Cédula</th>
             <th>Nombre completo</th>
             <th>Género</th>
-            <th>Direccion</th>
-            <th>Direccion fisica</th>
+            <th>Dirección</th>
+            <th>Dirección física</th>
             <th>Fecha de nacimiento</th>
             <th>Correo</th>
             @{

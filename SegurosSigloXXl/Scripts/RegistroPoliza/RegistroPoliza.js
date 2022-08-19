@@ -28,6 +28,8 @@ $(function () {
     paquetePasos();
 
     AccionesBotones();
+
+    CreaCalendario();
 });
 
 function AccionesBotones() {
@@ -42,7 +44,15 @@ function AccionesBotones() {
     });
 
 }
-
+function CreaCalendario() {
+    $("#FechaVencimiento").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        yearRange: "c-0:c+10",
+        dateFormat: "dd/mm/yy",
+        minDate: new Date(2023, 1 - 1, 1)
+    })
+}
 function CargaListaRegistroPoliza(NombrePoliza) {
     var url = "/RegistroPoliza/RegistroPolizaSelect";
 
@@ -71,9 +81,16 @@ function ProcesarDatosPoliza(data) {
     if (data.length > 0) {
         $(data).each(function () {
             var PolizaRegistro = this;
+            var FechaVencimiento = moment(PolizaRegistro.FechaVencimiento).format('DD/MM/YYYY');
+            var AnioVencimiento = moment(PolizaRegistro.FechaVencimiento).format('YYYY');
+            var MesVencimiento = moment(PolizaRegistro.FechaVencimiento).format('MM');
+            var DiaVencimiento = moment(PolizaRegistro.FechaVencimiento).format('DD');
+            var AnioActual = moment(Date.now()).format('YYYY');
+            var MesActual = moment(Date.now()).format('MM');
+            var DiaActual = moment(Date.now()).format('DD');
+            var totActual = AnioActual + MesActual + DiaActual;
+            var totVenci = AnioVencimiento + MesVencimiento + DiaVencimiento;
             var tPoliza = '<tr>';
-
-            tPoliza += '<td>' + PolizaRegistro.IdRegistroPoliza + '</td>';
             tPoliza += '<td>' + PolizaRegistro.NombreCobertura + '</td>';
             tPoliza += '<td>' + PolizaRegistro.NombreCliente + '</td>';
             tPoliza += '<td>' + '₡' + PolizaRegistro.MontoAsegurado + '</td>';
@@ -82,8 +99,14 @@ function ProcesarDatosPoliza(data) {
             tPoliza += '<td>' + '₡' + PolizaRegistro.PrimaAntesImpuesto + '</td>';
             tPoliza += '<td>' + '₡' + PolizaRegistro.Impuesto + '</td>';
             tPoliza += '<td>' + '₡' + PolizaRegistro.PrimaFinal + '</td>';
-            tPoliza += '<td><a onclick="ModificarRegistroPoliza(' + PolizaRegistro.IdRegistroPoliza + ');" class="btn btn-warning" title="Modificar"><i class="bi bi-pencil"></i></a></td>'
-            tPoliza += '<td><a onclick="EliminarRegistroPoliza(' + PolizaRegistro.IdRegistroPoliza + ');" class="btn btn-danger" title="Eliminar"><i class="bi bi-file-earmark-x"></i></a></td>'
+            tPoliza += '<td>' + FechaVencimiento + '</td>';
+            if (totVenci < totActual) {
+                tPoliza += '<td colspan="2" class="text-center"><b>Póliza vencida</b></td>'
+            } else if(totVenci >= totActual) {
+
+                tPoliza += '<td><a onclick="ModificarRegistroPoliza(' + PolizaRegistro.IdRegistroPoliza + ');" class="btn btn-warning" title="Modificar"><i class="bi bi-pencil"></i></a></td>'
+                tPoliza += '<td><a onclick="EliminarRegistroPoliza(' + PolizaRegistro.IdRegistroPoliza + ');" class="btn btn-danger" title="Eliminar"><i class="bi bi-file-earmark-x"></i></a></td>'
+            }
             tPoliza += '</tr>';
             cuerpoTabla.append(tPoliza);
         });
@@ -185,6 +208,7 @@ function InsertarPost() {
         IdCoberturaPoliza: $("#Cobertura").val(),
         IdCliente: $("#Cliente").val(),
         MontoAsegurado: $("#MontoAsegurado").val(),
+        FechaVencimiento: $("#FechaVencimiento").val(),
     }
 
     $.ajax({
@@ -290,6 +314,7 @@ function ProcesarDatosRegistroModificables(data) {
     $("#Cobertura").val(data.IdCoberturaPoliza);
     $("#Cliente").val(data.IdCliente);
     $("#MontoAsegurado").val(data.MontoAsegurado);
+    $("#FechaVencimiento").val(moment(data.FechaVencimiento).format('DD/MM/YYYY'));
 }
 
 function ModificarPost(IdRegistroPoliza) {
@@ -300,6 +325,7 @@ function ModificarPost(IdRegistroPoliza) {
         IdCoberturaPoliza: $("#Cobertura").val(),
         IdCliente: $("#Cliente").val(),
         MontoAsegurado: $("#MontoAsegurado").val(),
+        FechaVencimiento: $("#FechaVencimiento").val(),
     }
 
     $.ajax({

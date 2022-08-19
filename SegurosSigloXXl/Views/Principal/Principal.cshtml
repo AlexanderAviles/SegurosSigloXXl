@@ -4,8 +4,105 @@
     ViewBag.Tipousuario = ViewBag.TipoUsuario;
     Layout = "~/Views/Shared/_LayaoutGeneral.cshtml";
 }
+@section Estilos{
 
-<div class="text-center">
-    <h2>Pagina principal</h2>
+}
+<link href="~/Content/Carousel.css" rel="stylesheet" />
+<input type="text" value="@ViewBag.PrimeraVez" id="PrimeraVez" hidden readonly/>
+<input type="text" value="@ViewBag.NombreCliente" id="Nombre" hidden readonly/>
+
+<form id="frmAppBootstrap" runat="server">
+    <div class="text-center">
+        <h2>Seguros Siglo XXl</h2>
+    </div>
+
+    <div class="container" id="divContenendorContenido">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <ol id="olCarousel" class="carousel-indicators">
+                <li data-target="myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="myCarousel" data-slide-to="1"></li>
+                <li data-target="myCarousel" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                    <span class="sprite corazon"></span>
+                </div>
+                <div class="item">
+                    <span class="sprite auto"></span>
+                </div>
+                <div class="item">
+                    <span class="sprite casa"></span>
+                </div>
+                <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    <span class="sr-only">Anterior</span>
+                </a>
+                <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <span class="sr-only">Siguiente</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="container">
+    <div class="row">
+
+
+    </div>
+    <section class="layout">
+        <div>
+            <div class="col-3">
+                <h3>¿Cómo funcionan los seguros?</h3>
+                <video width="500" height="320" controls>
+                    <source src="~/Multimedia/Seguros.mp4" type="video/mp4">
+                    El navegador no soporta video.
+                </video>
+            </div>
+        </div>
+        <div>
+            <div class="col-3">
+                <h3>¿Qué es un seguro?</h3>
+                <p class="p-75">
+                    Un seguro es un contrato, denominado póliza de seguro, por el que una
+                    Compañía de Seguros (el asegurador) se obliga, mediante el cobro de una prima
+                    y para el caso de que se produzca el evento cuyo riesgo es objeto de cobertura
+                    a indemnizar, dentro de los límites pactados, el daño producido al asegurado;
+                    bien a través de un capital, una renta, o a través de la prestación de un servicio.
+                    En este contrato intervienen: el asegurador, que siempre ha de ser una compañía de seguros,
+                    que es la entidad responsable de la cobertura en caso de siniestro; el asegurado, propietario
+                    de la póliza de seguro y responsable del pago de la prima correspondiente; y el beneficiario, que es
+                    la persona que cobrará la indemnización correspondiente en caso de siniestro. No siempre estas tres
+                    figuras han de ser la misma persona pudiendo ser todos distintos.
+                </p>
+                <p class="p-75">
+                    También puede existir una figura más, el agente de seguros,
+                    que es la persona que intermedia entre el asegurado y la compañía
+                    de seguros antes de la compra de la póliza de seguro, en el momento
+                    de la formalización (compra) y después de la compra (modificaciones
+                    que sean necesarias, tramitación de siniestros, etcétera).
+                </p>
+            </div>
+
+        </div>
+        <div>
+            <h3>Importancia de los seguros</h3>
+            <p>El estilo de vida actual nos expone a constantes riesgos como: accidentes automovilísticos, enfermedades, robos, fenómenos naturales, etc. Contratiempos que en caso de no estar asegurado, nos pueden causar problemas y pérdidas económicas muy serias. El poseer un seguro le brinda la tranquilidad de que usted y sus seres queridos e inclusive su patrimonio, están protegidos ante cualquier eventualidad.</p>
+            <p>El adquirir éste beneficio nos da una sensación de seguridad, que se traduce a un bienestar para todo el núcleo familiar. La persona que cuenta con un Seguro sobre sus bienes o bien un seguro de vida, posee una alternativa rentable, que le respalda a la hora de un momento difícil en la vida. Crea confianza y elimina las preocupaciones en una circunstancia delicada, ya que estos beneficios están al alcance de nuestras manos, es real. La principal razón de asegurar nuestros bienes, es que ellos son una inversión muy importante para nosotros y posiblemente en el caso de nuestra casa, es el bien más valioso que tenemos. Por eso cualquier evento que la dañe o destruya, al poseer un seguro podemos minimizar las pérdidas producidas. En el caso de Seguros de Vida, la seguridad de los dependientes es posible a través de ellos. Da alivio a las familias indefensas luego de la muerte de un miembro de la familia, que en muchos casos es inclusive, el posible benefactor de ella.</p>
+        </div>
+        <div>
+            <div class="col-3 text-center">
+                <h3>Seguros</h3>
+                <br />
+                <audio controls>
+                    <source src="~/Multimedia/Seguros.mp3" type="audio/mpeg">
+                    El navegador no soporta audio.
+                </audio>
+            </div>
+        </div>
+    </section>
 </div>
-
+@section Scripts{
+    <script src="~/Scripts/Principal/Principal.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+}
